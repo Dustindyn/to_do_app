@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:you_do/src/features/dashboard/widgets+/weekly_progress_box.dart';
 
 class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
