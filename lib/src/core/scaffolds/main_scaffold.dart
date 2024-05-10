@@ -11,6 +11,13 @@ class MainScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {},
+        ),
+        onPressed: () {},
+      ),
       appBar: AppBar(
         title: Text(context.texts.app_title,
             style: context.theme.textTheme.displayLarge),

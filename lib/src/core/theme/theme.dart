@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 var theme = ThemeData(
-  primaryColor: Colors.blue[800],
+  primaryColor: Colors.orange[800],
   //cardColor: const Color(0xff23374a),
-  scaffoldBackgroundColor: const Color(0xff15202B),
-  cardColor: const Color(0xff22303c),
+  scaffoldBackgroundColor: const Color(0xff22303c),
+  cardColor: const Color(0xff2a3b4a),
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       fontSize: 24,

@@ -7,7 +7,7 @@ class DebugScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: WeeklyProgressBox(),
+      child: Placeholder(),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
-import 'package:you_do/src/features/dashboard/widgets+/weekly_progress_box.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
@@ -24,11 +23,10 @@ class DashboardScreen extends StatelessWidget {
         isCompleted: false,
         dueDate: DateTime.now()),
     Task(
-      id: "4",
-      description: "Bring girlfriend flowers",
-      isCompleted: false,
-      dueDate: DateTime.now(),
-    ),
+        id: "4",
+        description: "Wash dishes",
+        isCompleted: false,
+        dueDate: DateTime.now()),
   ];
 
   @override
@@ -44,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 12),
-            const WeeklyProgressBox(),
+            const SizedBox(height: 150, child: Placeholder()),
             const SizedBox(height: 12),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +59,8 @@ class DashboardScreen extends StatelessWidget {
                 description: task.description,
                 dueDate: task.dueDate,
                 isCompleted: task.isCompleted,
-              )
+              ),
+            const SizedBox(height: 64),
           ],
         ),
       ),
