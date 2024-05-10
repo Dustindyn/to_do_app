@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:you_do/l10n/context_text_extension.dart';
+import 'package:you_do/src/core/theme/theme_extension.dart';
 
 class MainScaffold extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -11,8 +12,10 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.texts.app_title),
-        backgroundColor: Colors.white,
+        title: Text(context.texts.app_title,
+            style: context.theme.textTheme.displayLarge),
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        scrolledUnderElevation: 0,
       ),
       body: navigationShell,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -25,12 +28,11 @@ class MainScaffold extends StatelessWidget {
           ),
         ]),
         child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.group), label: context.texts.meets),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.chat), label: context.texts.chats),
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.group), label: "test1"),
+            BottomNavigationBarItem(icon: Icon(Icons.chat), label: "test2"),
+            BottomNavigationBarItem(icon: Icon(Icons.chat), label: "test3")
           ],
           onTap: (tappedIndex) => navigationShell.goBranch(tappedIndex),
           currentIndex: navigationShell.currentIndex,
