@@ -16,7 +16,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => DashboardScreen(),
+              builder: (context, state) => DashboardPage(),
             ),
           ],
         ),

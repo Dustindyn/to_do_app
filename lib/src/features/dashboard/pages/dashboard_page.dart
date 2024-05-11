@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
 
-class DashboardScreen extends StatelessWidget {
-  DashboardScreen({super.key});
+class DashboardPage extends StatelessWidget {
+  DashboardPage({super.key});
 
   final _tasks = <Task>[
     Task(
@@ -42,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 12),
-            const SizedBox(height: 150, child: Placeholder()),
+            const SizedBox(height: 150),
             const SizedBox(height: 12),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
