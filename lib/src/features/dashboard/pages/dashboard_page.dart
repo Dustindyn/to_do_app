@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:you_do/l10n/context_text_extension.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
@@ -29,18 +30,19 @@ class _DashboardPageState extends State<DashboardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Dashboard",
-                  style: TextStyle(fontSize: 18),
+                Text(
+                  context.texts.dashboard,
+                  style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 12),
                 const SizedBox(height: 150),
                 const SizedBox(height: 12),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Todays Tasks", style: TextStyle(fontSize: 18)),
-                    Text(
+                    Text(context.texts.daily_tasks,
+                        style: const TextStyle(fontSize: 18)),
+                    const Text(
                       "1/4",
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
