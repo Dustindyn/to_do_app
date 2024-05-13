@@ -1,10 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 
@@ -34,6 +32,7 @@ void main() {
     whenListen<List<Task>>(mockTasksCubit, const Stream.empty(),
         initialState: mockTasks);
     when(() => mockTasksCubit.close()).thenAnswer((_) async {});
+    reset(mockTasksCubit);
   });
 
   testGoldens('Golden test dashboard page', (WidgetTester tester) async {

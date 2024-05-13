@@ -12,7 +12,7 @@ void main() {
         "checked",
         TaskBox(
           description: "Clean the kitchen",
-          dueDate: DateTime.now(),
+          dueDate: DateTime(DateTime.april),
           isCompleted: true,
         ),
       )
@@ -20,7 +20,7 @@ void main() {
         "unchecked",
         TaskBox(
           description: "Clean the kitchen",
-          dueDate: DateTime.now(),
+          dueDate: DateTime(DateTime.april),
           isCompleted: false,
         ),
       );
