@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:you_do/src/core/theme/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../mocks.dart';
+import '../mocks.dart';
 
 Widget wrapWidget(Widget child, {List<BlocProvider> blocProviders = const []}) {
   return MaterialApp(

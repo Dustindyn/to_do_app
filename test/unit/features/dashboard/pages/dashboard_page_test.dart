@@ -11,8 +11,7 @@ import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/features/dashboard/pages/dashboard_page.dart';
 
 import '../../../../mocks.dart';
-import '../../../../utils/golden_utils.dart';
-import '../../../util/test_util.dart';
+import '../../../../utils/test_util.dart';
 
 void main() {
   final mockTasksCubit = MockTasksCubit();
