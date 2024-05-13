@@ -49,4 +49,18 @@ void main() {
     );
     await screenMatchesGolden(tester, "dashboard_page");
   });
+
+  testWidgets('loads tasks on init', (tester) async {
+    await tester.pumpWidgetBuilder(
+      wrapWidget(
+        const DashboardPage(),
+        blocProviders: [
+          BlocProvider<TasksCubit>(
+            create: (_) => mockTasksCubit,
+          ),
+        ],
+      ),
+    );
+    verify(() => mockTasksCubit.getTasks()).called(1);
+  });
 }
