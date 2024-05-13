@@ -3,7 +3,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
 
 import '../../../../utils/golden_utils.dart';
-import '../../../util/test_util.dart';
+import '../../../../utils/test_util.dart';
 
 void main() {
   testGoldens('Golden test task box', (WidgetTester tester) async {
