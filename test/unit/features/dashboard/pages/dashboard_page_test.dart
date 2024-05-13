@@ -12,54 +12,56 @@ import '../../../../mocks.dart';
 import '../../../../utils/test_util.dart';
 
 void main() {
-  final mockTasksCubit = MockTasksCubit();
-  final List<Task> mockTasks = <Task>[
-    Task(
-      id: "1",
-      description: "Clean the kitchen",
-      dueDate: DateTime.now(),
-      isCompleted: false,
-    ),
-    Task(
-      id: "2",
-      description: "Buy groceries",
-      dueDate: DateTime.now(),
-      isCompleted: false,
-    ),
-  ];
-
-  setUpAll(() {
-    whenListen<List<Task>>(mockTasksCubit, const Stream.empty(),
-        initialState: mockTasks);
-    when(() => mockTasksCubit.close()).thenAnswer((_) async {});
-    reset(mockTasksCubit);
-  });
-
-  testGoldens('Golden test dashboard page', (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(
-      wrapWidget(
-        const DashboardPage(),
-        blocProviders: [
-          BlocProvider<TasksCubit>(
-            create: (_) => mockTasksCubit,
-          ),
-        ],
+  group('Dashboard Page', () {
+    final mockTasksCubit = MockTasksCubit();
+    final List<Task> mockTasks = <Task>[
+      Task(
+        id: "1",
+        description: "Clean the kitchen",
+        dueDate: DateTime.now(),
+        isCompleted: false,
       ),
-    );
-    await screenMatchesGolden(tester, "dashboard_page");
-  });
-
-  testWidgets('loads tasks on init', (tester) async {
-    await tester.pumpWidgetBuilder(
-      wrapWidget(
-        const DashboardPage(),
-        blocProviders: [
-          BlocProvider<TasksCubit>(
-            create: (_) => mockTasksCubit,
-          ),
-        ],
+      Task(
+        id: "2",
+        description: "Buy groceries",
+        dueDate: DateTime.now(),
+        isCompleted: false,
       ),
-    );
-    verify(() => mockTasksCubit.getTasks()).called(1);
+    ];
+
+    setUpAll(() {
+      reset(mockTasksCubit);
+      whenListen<List<Task>>(mockTasksCubit, const Stream.empty(),
+          initialState: mockTasks);
+      when(() => mockTasksCubit.close()).thenAnswer((_) async {});
+    });
+
+    testGoldens('Golden test dashboard page', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapWidget(
+          const DashboardPage(),
+          blocProviders: [
+            BlocProvider<TasksCubit>(
+              create: (_) => mockTasksCubit,
+            ),
+          ],
+        ),
+      );
+      await screenMatchesGolden(tester, "dashboard_page");
+    });
+
+    testWidgets('loads tasks on init', (tester) async {
+      await tester.pumpWidget(
+        wrapWidget(
+          const DashboardPage(),
+          blocProviders: [
+            BlocProvider<TasksCubit>(
+              create: (_) => mockTasksCubit,
+            ),
+          ],
+        ),
+      );
+      verify(() => mockTasksCubit.getTasks()).called(1);
+    });
   });
 }
