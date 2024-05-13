@@ -12,6 +12,7 @@ import 'package:you_do/src/features/dashboard/pages/dashboard_page.dart';
 
 import '../../../../mocks.dart';
 import '../../../../utils/golden_utils.dart';
+import '../../../util/test_util.dart';
 
 void main() {
   final mockTasksCubit = MockTasksCubit();
@@ -38,12 +39,13 @@ void main() {
 
   testGoldens('Golden test dashboard page', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
-      BlocProvider<TasksCubit>(
-        create: (context) => mockTasksCubit,
-        child: Localizations(delegates: [
-          const FakeAppLocalizationsDelegate(),
-          ...AppLocalizations.localizationsDelegates.skip(1),
-        ], locale: const Locale('en'), child: const DashboardPage()),
+      wrapWidget(
+        const DashboardPage(),
+        blocProviders: [
+          BlocProvider<TasksCubit>(
+            create: (_) => mockTasksCubit,
+          ),
+        ],
       ),
     );
     await screenMatchesGolden(tester, "dashboard_page");
