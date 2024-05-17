@@ -16,7 +16,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => DashboardPage(),
+              builder: (context, state) => const DashboardPage(),
             ),
           ],
         ),
@@ -24,14 +24,6 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/todos',
-              builder: (context, state) => const DebugScreen(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/stats',
               builder: (context, state) => const DebugScreen(),
             ),
           ],

@@ -1,5 +1,6 @@
 {
     "app_title": "You Do",
     "daily_tasks": "Todays Tasks",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "tasks": "Tasks"
 }

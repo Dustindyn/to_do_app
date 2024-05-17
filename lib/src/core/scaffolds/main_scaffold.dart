@@ -29,10 +29,12 @@ class MainScaffold extends StatelessWidget {
         ]),
         child: BottomNavigationBar(
           backgroundColor: context.theme.scaffoldBackgroundColor,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.group), label: "test1"),
-            BottomNavigationBarItem(icon: Icon(Icons.chat), label: "test2"),
-            BottomNavigationBarItem(icon: Icon(Icons.chat), label: "test3")
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.home), label: context.texts.dashboard),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.calendar_month),
+                label: context.texts.tasks),
           ],
           onTap: (tappedIndex) => navigationShell.goBranch(tappedIndex),
           currentIndex: navigationShell.currentIndex,
