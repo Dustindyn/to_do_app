@@ -5,6 +5,8 @@ import 'package:you_do/src/core/theme/theme_extension.dart';
 class WeeklyChart extends StatelessWidget {
   const WeeklyChart({super.key});
 
+  //TODO: data im state oder so erzeugen und theme nutzen
+
   BarTouchData get barTouchData => BarTouchData(
         enabled: false,
         touchTooltipData: BarTouchTooltipData(

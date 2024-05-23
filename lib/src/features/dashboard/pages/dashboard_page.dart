@@ -60,9 +60,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     children: [
                       Text(context.texts.daily_tasks,
                           style: const TextStyle(fontSize: 18)),
-                      const Text(
-                        "1/4",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      Text(
+                        _getCompletedTasksText(state),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -71,6 +72,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   for (final task in state)
                     TaskBox(
+                      taskId: task.id,
                       description: task.description,
                       dueDate: task.dueDate,
                       isCompleted: task.isCompleted,
@@ -83,5 +85,9 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
     );
+  }
+
+  String _getCompletedTasksText(List<Task> tasks) {
+    return "${tasks.where((t) => t.isCompleted).length}/${tasks.length}";
   }
 }

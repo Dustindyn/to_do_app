@@ -11,4 +11,12 @@ class TasksCubit extends Cubit<List<Task>> {
     final tasks = await _getTasks();
     emit(tasks);
   }
+
+  void setTaskCompletion(String taskId, bool isCompleted) {
+    final task = state.firstWhere((task) => task.id == taskId);
+    final updatedTask = task.copyWith(isCompleted: isCompleted);
+    final updatedTasks =
+        state.map((t) => t.id == taskId ? updatedTask : t).toList();
+    emit(updatedTasks);
+  }
 }
