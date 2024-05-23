@@ -51,7 +51,7 @@ class _TaskBoxState extends State<TaskBox> {
                     ),
                   ),
                 ),
-                const Icon(Icons.more_vert)
+                const Icon(Icons.more_vert, color: Colors.grey)
               ],
             ),
             const SizedBox(height: 16),

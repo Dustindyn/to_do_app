@@ -10,6 +10,7 @@ dependencies:
   animated_line_through: ^1.0.4
   bloc_test: ^9.1.7
   build_runner: ^2.4.9
+  fl_chart: ^0.68.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
@@ -19,6 +20,7 @@ dependencies:
   golden_toolkit: ^0.15.0
   mocktail: ^1.0.3
   percent_indicator: ^4.2.3
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
