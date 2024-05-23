@@ -55,7 +55,11 @@ class _TaskBoxState extends State<TaskBox> {
                     ),
                   ),
                 ),
-                const Icon(Icons.more_vert, color: Colors.grey)
+                InkWell(
+                  child: const Icon(Icons.close, color: Colors.grey),
+                  onTap: () =>
+                      context.read<TasksCubit>().deleteTask(widget.taskId),
+                )
               ],
             ),
             const SizedBox(height: 16),

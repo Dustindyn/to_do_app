@@ -19,4 +19,9 @@ class TasksCubit extends Cubit<List<Task>> {
         state.map((t) => t.id == taskId ? updatedTask : t).toList();
     emit(updatedTasks);
   }
+
+  void deleteTask(String taskId) {
+    final updatedTasks = state.where((task) => task.id != taskId).toList();
+    emit(updatedTasks);
+  }
 }
