@@ -24,4 +24,15 @@ class TasksCubit extends Cubit<List<Task>> {
     final updatedTasks = state.where((task) => task.id != taskId).toList();
     emit(updatedTasks);
   }
+
+  void addTask({required String description, required DateTime dueDate}) {
+    final newTask = Task(
+      id: DateTime.now().toIso8601String(),
+      description: description,
+      dueDate: dueDate,
+      isCompleted: false,
+    );
+    final updatedTasks = [...state, newTask];
+    emit(updatedTasks);
+  }
 }

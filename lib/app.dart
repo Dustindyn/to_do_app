@@ -8,12 +8,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
-      theme: theme,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-      ],
+    return Material(
+      child: MaterialApp.router(
+        routerConfig: router,
+        theme: theme,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+        ],
+      ),
     );
   }
 }

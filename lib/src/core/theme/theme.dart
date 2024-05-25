@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 var theme = ThemeData(
+  colorScheme: const ColorScheme.dark().copyWith(
+    primary: const Color(0xffef6c01),
+    secondary: const Color(0xffef6c01),
+  ),
   primaryColor: const Color(0xffef6c01),
   //cardColor: const Color(0xff23374a),
   scaffoldBackgroundColor: const Color(0xff22303c),
