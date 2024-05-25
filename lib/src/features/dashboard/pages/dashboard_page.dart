@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:you_do/l10n/context_text_extension.dart';
+import 'package:you_do/src/core/helpers/datetime_helpers.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
@@ -71,7 +72,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 12,
                   ),
                   //TODO: animated list here
-                  for (final task in state)
+                  for (final task in state.where((t) => t.dueDate.isToday))
                     TaskBox(
                       taskId: task.id,
                       description: task.description,

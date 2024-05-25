@@ -11,6 +11,7 @@ class AddTaskDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: make this not ugly
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 128),
       child: Container(
@@ -32,14 +33,18 @@ class AddTaskDialog extends StatelessWidget {
                 child: const Text("Select Date"),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    context.read<TasksCubit>().addTask(
-                          description: _description!,
-                          dueDate: _selectedDate!,
-                        );
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Add Task")),
+                onPressed: () {
+                  context.read<TasksCubit>().addTask(
+                        description: _description!,
+                        dueDate: _selectedDate!,
+                      );
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Add Task",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
             ],
           ),
         ),
@@ -48,6 +53,7 @@ class AddTaskDialog extends StatelessWidget {
   }
 
   void _getDate(BuildContext context) async {
+    //TODO: change calendar color to match scaffold color
     _selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),

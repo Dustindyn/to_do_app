@@ -8,6 +8,17 @@ var theme = ThemeData(
   primaryColor: const Color(0xffef6c01),
   //cardColor: const Color(0xff23374a),
   scaffoldBackgroundColor: const Color(0xff22303c),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.all(const Color(0xffef6c01)),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  ),
   cardColor: const Color(0xff2a3b4a),
   textTheme: const TextTheme(
     displayLarge: TextStyle(
