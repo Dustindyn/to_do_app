@@ -71,6 +71,10 @@ class _TaskBoxState extends State<TaskBox> {
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 Checkbox(
+                  side: WidgetStateBorderSide.resolveWith(
+                    (states) =>
+                        const BorderSide(width: 1.0, color: Colors.grey),
+                  ),
                   value: isChecked,
                   onChanged: (_) {
                     setState(() {
