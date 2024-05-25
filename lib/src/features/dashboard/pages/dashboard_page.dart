@@ -70,6 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   const SizedBox(
                     height: 12,
                   ),
+                  //TODO: animated list here
                   for (final task in state)
                     TaskBox(
                       taskId: task.id,

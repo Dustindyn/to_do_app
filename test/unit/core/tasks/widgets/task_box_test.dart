@@ -11,6 +11,7 @@ void main() {
       ..addScenario(
         "checked",
         TaskBox(
+          taskId: "1",
           description: "Clean the kitchen",
           dueDate: DateTime(DateTime.april),
           isCompleted: true,
@@ -19,6 +20,7 @@ void main() {
       ..addScenario(
         "unchecked",
         TaskBox(
+          taskId: "2",
           description: "Clean the kitchen",
           dueDate: DateTime(DateTime.april),
           isCompleted: false,
