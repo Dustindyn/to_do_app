@@ -47,7 +47,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       CircularPercentIndicator(
                         radius: 55,
                         lineWidth: 7,
-                        percent: 0.25,
+                        percent: state
+                                .where((t) =>
+                                    t.isCompleted &&
+                                    t.dueDate.isSameWeekAsToday)
+                                .length /
+                            state
+                                .where((t) => t.dueDate.isSameWeekAsToday)
+                                .length,
                         progressColor: context.theme.primaryColor,
                         backgroundColor: const Color(0xff384c5e),
                       ),
