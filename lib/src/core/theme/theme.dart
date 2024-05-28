@@ -6,11 +6,19 @@ var theme = ThemeData(
     secondary: const Color(0xffef6c01),
   ),
   primaryColor: const Color(0xffef6c01),
+  hintColor: const Color(0xffff7300),
   //cardColor: const Color(0xff23374a),
   scaffoldBackgroundColor: const Color(0xff22303c),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(const Color(0xffef6c01)),
+      backgroundColor: WidgetStateProperty.resolveWith(
+        (states) {
+          if (states.contains(WidgetState.disabled)) {
+            return const Color(0xff4a6572);
+          }
+          return const Color(0xffef6c01);
+        },
+      ),
       textStyle: WidgetStateProperty.all(
         const TextStyle(
           color: Colors.white,

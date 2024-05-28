@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:you_do/l10n/context_text_extension.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
-class AddTaskDialog extends StatelessWidget {
-  AddTaskDialog({super.key});
+class AddTaskDialog extends StatefulWidget {
+  const AddTaskDialog({super.key});
 
+  @override
+  State<AddTaskDialog> createState() => _AddTaskDialogState();
+}
+
+class _AddTaskDialogState extends State<AddTaskDialog> {
   DateTime? _selectedDate;
+
   String? _description;
 
   @override
@@ -20,29 +27,36 @@ class AddTaskDialog extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Text("New Task", style: context.theme.textTheme.displayLarge),
+              Text(context.texts.add_task_new_task,
+                  style: context.theme.textTheme.displayLarge),
               TextField(
-                onChanged: (value) => _description = value,
-                decoration: const InputDecoration(
-                  labelText: "Description",
-                  hintText: "Enter task description",
+                onChanged: (value) => setState(() {
+                  _description = value;
+                }),
+                decoration: InputDecoration(
+                  labelText: context.texts.add_task_description,
+                  hintText: context.texts.add_task_hint,
                 ),
               ),
               TextButton(
-                onPressed: () => _getDate(context),
+                onPressed: () => setState(() {
+                  _getDate(context);
+                }),
                 child: const Text("Select Date"),
               ),
               ElevatedButton(
-                onPressed: () {
-                  context.read<TasksCubit>().addTask(
-                        description: _description!,
-                        dueDate: _selectedDate!,
-                      );
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  "Add Task",
-                  style: TextStyle(color: Colors.white),
+                onPressed: _description != null && _selectedDate != null
+                    ? () {
+                        context.read<TasksCubit>().addTask(
+                              description: _description!,
+                              dueDate: _selectedDate!,
+                            );
+                        Navigator.of(context).pop();
+                      }
+                    : null,
+                child: Text(
+                  context.texts.add_task_submit,
+                  style: const TextStyle(color: Colors.white),
                 ),
               )
             ],

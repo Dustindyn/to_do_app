@@ -1,13 +1,43 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:you_do/src/core/helpers/datetime_helpers.dart';
+import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
+import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
-class WeeklyChart extends StatelessWidget {
+class WeeklyChart extends StatefulWidget {
   const WeeklyChart({super.key});
 
-  //TODO: data im state oder so erzeugen und theme nutzen
+  @override
+  State<WeeklyChart> createState() => _WeeklyChartState();
+}
 
-  BarTouchData get barTouchData => BarTouchData(
+class _WeeklyChartState extends State<WeeklyChart> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TasksCubit, List<Task>>(
+      builder: (context, state) {
+        return SizedBox(
+          width: 220,
+          height: 150,
+          child: BarChart(
+            BarChartData(
+              barTouchData: _getBarTouchData(),
+              titlesData: _getTitlesData(),
+              borderData: borderData,
+              barGroups: _getBarGroups(state),
+              gridData: const FlGridData(show: false),
+              alignment: BarChartAlignment.spaceAround,
+              maxY: 20,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  BarTouchData _getBarTouchData() => BarTouchData(
         enabled: false,
         touchTooltipData: BarTouchTooltipData(
           getTooltipColor: (group) => Colors.transparent,
@@ -66,7 +96,7 @@ class WeeklyChart extends StatelessWidget {
     );
   }
 
-  FlTitlesData get titlesData => FlTitlesData(
+  FlTitlesData _getTitlesData() => FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
@@ -90,21 +120,25 @@ class WeeklyChart extends StatelessWidget {
         show: false,
       );
 
-  LinearGradient get _barsGradient => const LinearGradient(
+  LinearGradient get _barsGradient => LinearGradient(
         colors: [
-          Color(0xffef6c01),
-          Color(0xffff7300),
+          context.theme.primaryColorLight,
+          context.theme.hintColor,
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       );
 
-  List<BarChartGroupData> get barGroups => [
+  List<BarChartGroupData> _getBarGroups(List<Task> state) => [
         BarChartGroupData(
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 8,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 1)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -114,7 +148,11 @@ class WeeklyChart extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 10,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 2)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -124,7 +162,11 @@ class WeeklyChart extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 14,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 3)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -134,7 +176,11 @@ class WeeklyChart extends StatelessWidget {
           x: 3,
           barRods: [
             BarChartRodData(
-              toY: 15,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 4)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -144,7 +190,11 @@ class WeeklyChart extends StatelessWidget {
           x: 4,
           barRods: [
             BarChartRodData(
-              toY: 13,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 5)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -154,7 +204,11 @@ class WeeklyChart extends StatelessWidget {
           x: 5,
           barRods: [
             BarChartRodData(
-              toY: 10,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 6)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
@@ -164,30 +218,15 @@ class WeeklyChart extends StatelessWidget {
           x: 6,
           barRods: [
             BarChartRodData(
-              toY: 16,
+              toY: state
+                  .where((t) =>
+                      t.dueDate.isSameWeekAsToday && t.dueDate.weekday == 7)
+                  .length
+                  .toDouble(),
               gradient: _barsGradient,
             )
           ],
           showingTooltipIndicators: [0],
         ),
       ];
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 220,
-      height: 150,
-      child: BarChart(
-        BarChartData(
-          barTouchData: barTouchData,
-          titlesData: titlesData,
-          borderData: borderData,
-          barGroups: barGroups,
-          gridData: const FlGridData(show: false),
-          alignment: BarChartAlignment.spaceAround,
-          maxY: 20,
-        ),
-      ),
-    );
-  }
 }

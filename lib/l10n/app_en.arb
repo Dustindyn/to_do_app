@@ -2,5 +2,9 @@
     "app_title": "You Do",
     "daily_tasks": "Todays Tasks",
     "dashboard": "Dashboard",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "add_task_new_task": "New Task",
+    "add_task_description": "Description",
+    "add_task_hint": "Enter task description",
+    "add_task_submit": "Add Task"
 }
