@@ -29,7 +29,6 @@ class _WeeklyChartState extends State<WeeklyChart> {
               barGroups: _getBarGroups(state),
               gridData: const FlGridData(show: false),
               alignment: BarChartAlignment.spaceAround,
-              maxY: 20,
             ),
           ),
         );
