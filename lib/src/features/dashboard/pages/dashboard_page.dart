@@ -47,6 +47,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       CircularPercentIndicator(
                         radius: 55,
                         lineWidth: 7,
+                        animation: true,
+                        animationDuration: 500,
+                        animateFromLastPercent: true,
                         percent: state
                                 .where((t) =>
                                     t.isCompleted &&
