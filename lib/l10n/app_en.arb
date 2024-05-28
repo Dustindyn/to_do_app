@@ -2,6 +2,7 @@
     "app_title": "You Do",
     "daily_tasks": "Todays Tasks",
     "dashboard": "Dashboard",
+    "dashboard_daily_progress": "Todays Progress",
     "tasks": "Tasks",
     "add_task_new_task": "New Task",
     "add_task_description": "Description",
