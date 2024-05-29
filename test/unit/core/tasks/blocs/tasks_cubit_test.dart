@@ -75,7 +75,12 @@ void main() {
       build: buildSut,
       act: (cubit) => cubit.addTask(description: "test", dueDate: testDate),
       expect: () => [
-        [isA<Task>()]
+        [
+          isA<Task>()
+              .having((t) => t.description, "description", "test")
+              .having((t) => t.dueDate, "dueDate", testDate)
+              .having((t) => t.isCompleted, "isCompleted", false),
+        ]
       ],
     );
   });
