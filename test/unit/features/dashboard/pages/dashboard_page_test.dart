@@ -5,6 +5,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
+import 'package:you_do/src/core/tasks/widgets/task_box.dart';
 
 import 'package:you_do/src/features/dashboard/pages/dashboard_page.dart';
 
@@ -25,6 +26,12 @@ void main() {
         id: "2",
         description: "Buy groceries",
         dueDate: DateTime.now(),
+        isCompleted: false,
+      ),
+      Task(
+        id: "2",
+        description: "Buy groceries",
+        dueDate: DateTime.now().add(const Duration(days: 1)),
         isCompleted: false,
       ),
     ];
@@ -62,6 +69,21 @@ void main() {
         ),
       );
       verify(() => mockTasksCubit.getTasks()).called(1);
+    });
+
+    testWidgets('displays all tasks for today', (tester) async {
+      await tester.pumpWidget(
+        wrapWidget(
+          const DashboardPage(),
+          blocProviders: [
+            BlocProvider<TasksCubit>(
+              create: (_) => mockTasksCubit,
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(TaskBox), findsNWidgets(2));
     });
   });
 }
