@@ -9,6 +9,7 @@ import '../../../../mocks.dart';
 void main() {
   group("$TasksCubit", () {
     final mockGetTasks = MockGetTasks();
+    final MockSaveTasks mockSaveTasks = MockSaveTasks();
     final testDate = DateTime.now();
     when(() => mockGetTasks()).thenAnswer((_) async => [
           Task(
@@ -17,7 +18,7 @@ void main() {
               dueDate: testDate,
               isCompleted: false)
         ]);
-    TasksCubit buildSut() => TasksCubit(mockGetTasks);
+    TasksCubit buildSut() => TasksCubit(mockGetTasks, mockSaveTasks);
 
     blocTest(
       "initial state is empty and does not emit",

@@ -39,9 +39,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 ),
               ),
               TextButton(
-                onPressed: () => setState(() {
-                  _getDate(context);
-                }),
+                onPressed: () => _getDate(context),
                 child: const Text("Select Date"),
               ),
               ElevatedButton(
@@ -68,11 +66,14 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
   void _getDate(BuildContext context) async {
     //TODO: change calendar color to match scaffold color
-    _selectedDate = await showDatePicker(
+    final date = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2025),
     );
+    setState(() {
+      _selectedDate = date;
+    });
   }
 }

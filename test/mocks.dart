@@ -5,6 +5,7 @@ import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/usecases/get_tasks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:you_do/src/core/tasks/usecases/save_tasks.dart';
 
 //fakes
 class FakeAppLocalizations extends Fake implements AppLocalizations {
@@ -60,3 +61,5 @@ class MockTasksCubit extends MockCubit<List<Task>> implements TasksCubit {}
 
 //usecases
 class MockGetTasks extends Mock implements GetTasks {}
+
+class MockSaveTasks extends Mock implements SaveTasks {}

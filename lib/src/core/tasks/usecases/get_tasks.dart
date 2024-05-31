@@ -1,30 +1,24 @@
+import 'dart:convert';
+
 import 'package:you_do/src/core/tasks/models/task.dart';
+import 'package:you_do/src/core/wrappers/shared_prefs_wrapper.dart';
 
 class GetTasks {
-  const GetTasks();
+  final SharedPrefsWrapper _sharedPrefsWrapper;
+  const GetTasks(this._sharedPrefsWrapper);
 
-  Future<List<Task>> call() async {
-    return [
-      Task(
-          id: "1",
-          description: "Clean the kitchen",
-          dueDate: DateTime.now(),
-          isCompleted: false),
-      Task(
-          id: "2",
-          description: "Go to gym",
-          isCompleted: false,
-          dueDate: DateTime.now()),
-      Task(
-          id: "3",
-          description: "Call mom",
-          isCompleted: false,
-          dueDate: DateTime.now()),
-      Task(
-          id: "4",
-          description: "Wash dishes",
-          isCompleted: false,
-          dueDate: DateTime.now()),
-    ];
+  Future<List<Task>?> call() async {
+    //TODO: move key to a config file or similar
+    final tasksAsJsonStrings = _sharedPrefsWrapper.getStringList('tasks');
+    if (tasksAsJsonStrings == null) {
+      return [];
+    }
+    return tasksAsJsonStrings
+        .map(
+          (taskAsJsonString) => Task.fromJson(
+            jsonDecode(taskAsJsonString),
+          ),
+        )
+        .toList();
   }
 }
