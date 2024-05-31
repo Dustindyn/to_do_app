@@ -1,5 +1,7 @@
 {
     "app_title": "You Do",
+    "app_title_first": "You",
+    "app_title_second": "Do",
     "daily_tasks": "Todays Tasks",
     "dashboard": "Dashboard",
     "dashboard_daily_progress": "Todays Progress",

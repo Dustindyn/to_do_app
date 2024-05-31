@@ -12,8 +12,7 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.texts.app_title,
-            style: context.theme.textTheme.displayLarge),
+        title: const AppTitle(),
         backgroundColor: context.theme.scaffoldBackgroundColor,
         scrolledUnderElevation: 0,
       ),
@@ -41,6 +40,54 @@ class MainScaffold extends StatelessWidget {
           selectedItemColor: Theme.of(context).primaryColor,
         ),
       ),
+    );
+  }
+}
+
+class AppTitle extends StatelessWidget {
+  const AppTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              context.texts.app_title_first,
+              style: context.theme.textTheme.displayLarge!.copyWith(
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.black,
+              ),
+            ),
+            const SizedBox(width: 2),
+            Text(
+              context.texts.app_title_second,
+              style: context.theme.textTheme.displayLarge!.copyWith(
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.black,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(context.texts.app_title_first,
+                style: context.theme.textTheme.displayLarge),
+            const SizedBox(width: 2),
+            Text(context.texts.app_title_second,
+                style: context.theme.textTheme.displayLarge!
+                    .copyWith(color: context.theme.primaryColor)),
+          ],
+        ),
+      ],
     );
   }
 }
