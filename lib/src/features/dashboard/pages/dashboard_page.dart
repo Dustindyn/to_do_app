@@ -29,7 +29,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       floatingActionButton: const AddTaskFab(),
       body: SingleChildScrollView(
-        child: BlocBuilder<TasksCubit, List<Task>>(
+        child: BlocBuilder<TasksCubit, TasksState>(
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -55,7 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Text(context.texts.daily_tasks,
                           style: const TextStyle(fontSize: 18)),
                       Text(
-                        _getCompletedTasksText(state),
+                        _getCompletedTasksText(state.tasks),
                         style:
                             const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
@@ -65,7 +65,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 12,
                   ),
                   //TODO: animated list here
-                  for (final task in state.where((t) => t.dueDate.isToday))
+                  for (final task
+                      in state.tasks.where((t) => t.dueDate.isToday))
                     TaskBox(
                       taskId: task.id,
                       description: task.description,

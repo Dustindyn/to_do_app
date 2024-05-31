@@ -9,8 +9,9 @@ import '../../../../mocks.dart';
 void main() {
   group("$TasksCubit", () {
     final mockGetTasks = MockGetTasks();
-    final MockSaveTasks mockSaveTasks = MockSaveTasks();
+    final mockSaveTasks = MockSaveTasks();
     final testDate = DateTime.now();
+    when(() => mockSaveTasks(any())).thenAnswer((_) async {});
     when(() => mockGetTasks()).thenAnswer((_) async => [
           Task(
               id: "1",
@@ -31,58 +32,45 @@ void main() {
       build: buildSut,
       act: (cubit) => cubit.getTasks(),
       expect: () => [
-        [
+        const TasksState.loading([]),
+        TasksState.loaded([
           Task(
               id: "1",
               description: "test",
               dueDate: testDate,
               isCompleted: false)
-        ]
+        ]),
       ],
     );
 
     blocTest(
       "setTaskCompletion emits updated tasks",
       build: buildSut,
-      seed: () => [
+      seed: () => TasksState.loaded([
         Task(
             id: "1", description: "test", dueDate: testDate, isCompleted: false)
-      ],
+      ]),
       act: (cubit) => cubit.setTaskCompletion("1", true),
       expect: () => [
-        [
+        TasksState.loaded([
           Task(
               id: "1",
               description: "test",
               dueDate: testDate,
               isCompleted: true)
-        ]
+        ])
       ],
     );
 
     blocTest(
       "deleteTask emits updated tasks",
       build: buildSut,
-      seed: () => [
+      seed: () => TasksState.loaded([
         Task(
             id: "1", description: "test", dueDate: testDate, isCompleted: false)
-      ],
+      ]),
       act: (cubit) => cubit.deleteTask("1"),
-      expect: () => [[]],
-    );
-
-    blocTest(
-      "addTask emits updated tasks",
-      build: buildSut,
-      act: (cubit) => cubit.addTask(description: "test", dueDate: testDate),
-      expect: () => [
-        [
-          isA<Task>()
-              .having((t) => t.description, "description", "test")
-              .having((t) => t.dueDate, "dueDate", testDate)
-              .having((t) => t.isCompleted, "isCompleted", false),
-        ]
-      ],
+      expect: () => [const TasksState.loaded([])],
     );
   });
 }

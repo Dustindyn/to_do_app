@@ -12,7 +12,7 @@ class DailyProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TasksCubit, List<Task>>(builder: (context, state) {
+    return BlocBuilder<TasksCubit, TasksState>(builder: (context, state) {
       return Stack(
         children: [
           Positioned(
@@ -27,10 +27,10 @@ class DailyProgressIndicator extends StatelessWidget {
               animation: true,
               animationDuration: 500,
               animateFromLastPercent: true,
-              percent: state
+              percent: state.tasks
                       .where((t) => t.isCompleted && t.dueDate.isToday)
                       .length /
-                  state.where((t) => t.dueDate.isToday).length,
+                  state.tasks.where((t) => t.dueDate.isToday).length,
               progressColor: context.theme.primaryColor,
               backgroundColor: const Color(0xff384c5e),
             ),

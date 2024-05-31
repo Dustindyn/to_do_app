@@ -57,7 +57,7 @@ class FakeAppLocalizationsDelegate
 }
 
 //cubits
-class MockTasksCubit extends MockCubit<List<Task>> implements TasksCubit {}
+class MockTasksCubit extends MockCubit<TasksState> implements TasksCubit {}
 
 //usecases
 class MockGetTasks extends Mock implements GetTasks {}

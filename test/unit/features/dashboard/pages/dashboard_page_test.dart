@@ -38,8 +38,8 @@ void main() {
 
     setUpAll(() {
       reset(mockTasksCubit);
-      whenListen<List<Task>>(mockTasksCubit, const Stream.empty(),
-          initialState: mockTasks);
+      whenListen<TasksState>(mockTasksCubit, const Stream.empty(),
+          initialState: TasksState.loaded(mockTasks));
       when(() => mockTasksCubit.close()).thenAnswer((_) async {});
     });
 

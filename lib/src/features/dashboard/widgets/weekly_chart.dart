@@ -16,7 +16,7 @@ class WeeklyChart extends StatefulWidget {
 class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TasksCubit, List<Task>>(
+    return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
         return SizedBox(
           width: 220,
@@ -26,7 +26,7 @@ class _WeeklyChartState extends State<WeeklyChart> {
               barTouchData: _getBarTouchData(),
               titlesData: _getTitlesData(),
               borderData: borderData,
-              barGroups: _getBarGroups(state),
+              barGroups: _getBarGroups(state.tasks),
               gridData: const FlGridData(show: false),
               alignment: BarChartAlignment.spaceAround,
             ),
