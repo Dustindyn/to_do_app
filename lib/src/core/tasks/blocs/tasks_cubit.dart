@@ -33,31 +33,46 @@ class TasksCubit extends Cubit<TasksState> {
   }
 
   //TODO: add rollback if savetasks fails
-  void setTaskCompletion(String taskId, bool isCompleted) {
-    final task = state.tasks.firstWhere((task) => task.id == taskId);
-    final updatedTask = task.copyWith(isCompleted: isCompleted);
-    final updatedTasks =
-        state.tasks.map((t) => t.id == taskId ? updatedTask : t).toList();
-    emit(TasksState.loaded(updatedTasks));
-    _saveTasks(updatedTasks);
+  Future<void> setTaskCompletion(String taskId, bool isCompleted) async {
+    final rollbackState = state.tasks;
+    try {
+      final task = state.tasks.firstWhere((task) => task.id == taskId);
+      final updatedTask = task.copyWith(isCompleted: isCompleted);
+      final updatedTasks =
+          state.tasks.map((t) => t.id == taskId ? updatedTask : t).toList();
+      emit(TasksState.loaded(updatedTasks));
+      await _saveTasks(updatedTasks);
+    } on Exception catch (e) {
+      emit(TasksState.error([...rollbackState]));
+    }
   }
 
-  void deleteTask(String taskId) {
-    final updatedTasks =
-        state.tasks.where((task) => task.id != taskId).toList();
-    emit(TasksState.loaded(updatedTasks));
-    _saveTasks(updatedTasks);
+  void deleteTask(String taskId) async {
+    final rollbackState = state.tasks;
+    try {
+      final updatedTasks =
+          state.tasks.where((task) => task.id != taskId).toList();
+      emit(TasksState.loaded(updatedTasks));
+      await _saveTasks(updatedTasks);
+    } on Exception catch (e) {
+      emit(TasksState.error([...rollbackState]));
+    }
   }
 
-  void addTask({required String description, required DateTime dueDate}) {
-    final newTask = Task(
-      id: DateTime.now().toIso8601String(),
-      description: description,
-      dueDate: dueDate,
-      isCompleted: false,
-    );
-    final updatedTasks = [...state.tasks, newTask];
-    emit(TasksState.loaded(updatedTasks));
-    _saveTasks(updatedTasks);
+  void addTask({required String description, required DateTime dueDate}) async {
+    final rollbackState = state.tasks;
+    try {
+      final newTask = Task(
+        id: DateTime.now().toIso8601String(),
+        description: description,
+        dueDate: dueDate,
+        isCompleted: false,
+      );
+      final updatedTasks = [...state.tasks, newTask];
+      emit(TasksState.loaded(updatedTasks));
+      await _saveTasks(updatedTasks);
+    } on Exception catch (e) {
+      emit(TasksState.error([...rollbackState]));
+    }
   }
 }

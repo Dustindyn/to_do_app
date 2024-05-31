@@ -9,6 +9,8 @@ class SaveTasks {
   SaveTasks(this._sharedPrefsWrapper);
 
   Future<void> call(List<Task> tasks) async {
+    await Future.delayed(const Duration(seconds: 2));
+    throw Exception();
     //TODO: move key to a config file or similar
     final tasksAsJsonStrings =
         tasks.map((task) => jsonEncode(task.toJson())).toList();
