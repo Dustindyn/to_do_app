@@ -27,6 +27,7 @@ class TasksCubit extends Cubit<List<Task>> {
   void deleteTask(String taskId) {
     final updatedTasks = state.where((task) => task.id != taskId).toList();
     emit(updatedTasks);
+    _saveTasks(updatedTasks);
   }
 
   void addTask({required String description, required DateTime dueDate}) {
