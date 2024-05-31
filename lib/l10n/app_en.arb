@@ -9,5 +9,6 @@
     "add_task_new_task": "New Task",
     "add_task_description": "Description",
     "add_task_hint": "Enter task description",
-    "add_task_submit": "Add Task"
+    "add_task_submit": "Add Task",
+    "error_tasks": "Oops! Something went wrong while updating tasks. Please try again later"
 }

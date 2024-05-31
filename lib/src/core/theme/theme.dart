@@ -4,6 +4,7 @@ var theme = ThemeData(
   colorScheme: const ColorScheme.dark().copyWith(
     primary: const Color(0xffef6c01),
     secondary: const Color(0xffef6c01),
+    error: Colors.red,
   ),
   primaryColor: const Color(0xffef6c01),
   hintColor: const Color(0xffff7300),
