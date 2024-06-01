@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:you_do/debug/debug_screen.dart';
 import 'package:you_do/src/core/scaffolds/main_scaffold.dart';
 import 'package:you_do/src/features/dashboard/pages/dashboard_page.dart';
+import 'package:you_do/src/features/weekly_tasks/pages/weekly_tasks_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/dashboard',
@@ -24,7 +25,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/todos',
-              builder: (context, state) => const DebugScreen(),
+              builder: (context, state) => const WeeklyTasksPage(),
             ),
           ],
         ),

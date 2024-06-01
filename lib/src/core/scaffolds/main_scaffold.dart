@@ -80,7 +80,7 @@ class AppTitle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(context.texts.app_title_first,
-                style: context.theme.textTheme.displayLarge),
+                style: context.theme.textTheme.displayLarge!),
             const SizedBox(width: 2),
             Text(context.texts.app_title_second,
                 style: context.theme.textTheme.displayLarge!

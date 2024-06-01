@@ -16,3 +16,10 @@ extension DateHelpers on DateTime {
     return now.day == day && now.month == month && now.year == year;
   }
 }
+
+List<DateTime> getDaysInWeek() {
+  final now = DateTime.now();
+  final firstDayOfThisWeek = now.subtract(Duration(days: now.weekday - 1));
+  return List.generate(
+      7, (index) => firstDayOfThisWeek.add(Duration(days: index)));
+}

@@ -10,20 +10,14 @@ void main() {
     final builder = getGoldenColumnBuilder()
       ..addScenario(
         "checked",
-        TaskBox(
+        const TaskBox(
           taskId: "1",
-          description: "Clean the kitchen",
-          dueDate: DateTime(DateTime.april),
-          isCompleted: true,
         ),
       )
       ..addScenario(
         "unchecked",
-        TaskBox(
+        const TaskBox(
           taskId: "2",
-          description: "Clean the kitchen",
-          dueDate: DateTime(DateTime.april),
-          isCompleted: false,
         ),
       );
     await tester.pumpWidgetBuilder(builder.build(), wrapper: wrapWidget);
