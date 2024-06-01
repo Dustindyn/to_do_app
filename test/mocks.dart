@@ -2,7 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
-import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/usecases/get_tasks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:you_do/src/core/tasks/usecases/save_tasks.dart';

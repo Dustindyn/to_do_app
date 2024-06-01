@@ -4,7 +4,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:you_do/l10n/context_text_extension.dart';
 import 'package:you_do/src/core/helpers/datetime_helpers.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
-import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
 class DailyProgressIndicator extends StatelessWidget {
