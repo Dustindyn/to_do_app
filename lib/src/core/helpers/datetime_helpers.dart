@@ -1,12 +1,12 @@
 extension DateHelpers on DateTime {
   bool get isSameWeekAsToday {
     final now = DateTime.now();
-    final firstDayOfThisWeek = now.subtract(Duration(days: weekday - 1));
-    final lastDayOfThisWeek = now.add(Duration(days: 7 - weekday));
-    return now.isAfter(firstDayOfThisWeek.subtract(
+    final firstDayOfThisWeek = now.subtract(Duration(days: now.weekday - 1));
+    final lastDayOfThisWeek = now.add(Duration(days: 7 - now.weekday));
+    return isAfter(firstDayOfThisWeek.subtract(
           const Duration(days: 1),
         )) &&
-        now.isBefore(lastDayOfThisWeek.add(
+        isBefore(lastDayOfThisWeek.add(
           const Duration(days: 1),
         ));
   }
@@ -14,6 +14,10 @@ extension DateHelpers on DateTime {
   bool get isToday {
     final now = DateTime.now();
     return now.day == day && now.month == month && now.year == year;
+  }
+
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
   }
 }
 

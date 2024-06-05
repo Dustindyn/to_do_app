@@ -10,6 +10,7 @@ var theme = ThemeData(
   hintColor: const Color(0xffff7300),
   //cardColor: const Color(0xff23374a),
   scaffoldBackgroundColor: const Color(0xff22303c),
+  dividerColor: Colors.grey[700],
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith(
