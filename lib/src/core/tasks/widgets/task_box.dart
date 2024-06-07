@@ -1,9 +1,13 @@
 import 'package:animated_line_through/animated_line_through.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:you_do/src/dependencies.dart';
 
 class TaskBox extends StatefulWidget {
   final String taskId;
@@ -64,6 +68,7 @@ class _TaskBoxState extends State<TaskBox> {
                               color: Colors.grey),
                       onTap: () => setState(
                         () {
+                          _scheduleNotification(context);
                           _hasNotification = !_hasNotification;
                         },
                       ),
@@ -89,6 +94,29 @@ class _TaskBoxState extends State<TaskBox> {
         );
       },
     );
+  }
+
+  Future<void> _scheduleNotification(
+    BuildContext ctx, {
+    Duration inDuration = const Duration(
+      seconds: 20,
+    ),
+  }) async {
+    final notificationPlugin = ctx.get<FlutterLocalNotificationsPlugin>();
+    await notificationPlugin.zonedSchedule(
+        0,
+        "Test Title",
+        "Test body",
+        tz.TZDateTime.now(tz.local).add(inDuration),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+              'your channel id', 'your channel name',
+              channelDescription: 'your channel description'),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+    print("were here");
   }
 
   bool _getIsChecked(List<Task> tasks) {

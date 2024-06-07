@@ -3,6 +3,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:you_do/src/core/wrappers/shared_prefs_wrapper.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Future<void> registerDependencies() async {
   final getIt = GetIt.instance;
@@ -39,6 +41,9 @@ Future<void> registerLocalNotifications() async {
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
 
   GetIt.instance.registerSingleton(flutterLocalNotificationsPlugin);
+  tz.initializeTimeZones();
+  final localDate = DateTime.now();
+  tz.setLocalLocation(tz.getLocation(tz.local.name));
 }
 
 void onDidReceiveNotificationResponse(
