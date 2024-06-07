@@ -105,6 +105,6 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   String _getCompletedTasksText(List<Task> tasks) {
-    return "${tasks.where((t) => t.isCompleted).length}/${tasks.length}";
+    return "${tasks.where((t) => t.isCompleted && t.dueDate.isToday).length}/${tasks.where((t) => t.dueDate.isToday).length}";
   }
 }

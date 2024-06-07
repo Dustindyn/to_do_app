@@ -23,6 +23,7 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: use selected date as initial date for fab
     return Scaffold(
       floatingActionButton: const AddTaskFab(),
       body: BlocBuilder<TasksCubit, TasksState>(
@@ -46,6 +47,7 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
+                    //TODO: animated list here
                     for (final task in state.tasks
                         .where((t) => t.dueDate.isSameDate(_selectedDate)))
                       TaskBox(

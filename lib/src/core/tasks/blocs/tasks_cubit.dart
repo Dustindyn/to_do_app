@@ -32,7 +32,6 @@ class TasksCubit extends Cubit<TasksState> {
     }
   }
 
-  //TODO: add rollback if savetasks fails
   Future<void> setTaskCompletion(String taskId, bool isCompleted) async {
     final rollbackState = state.tasks;
     try {

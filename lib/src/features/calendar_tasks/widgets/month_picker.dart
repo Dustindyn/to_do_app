@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
@@ -13,7 +12,7 @@ class MonthPicker extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Ink(
-        width: 150,
+        width: 200,
         padding: const EdgeInsets.only(left: 14.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

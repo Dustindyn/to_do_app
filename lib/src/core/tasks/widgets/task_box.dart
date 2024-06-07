@@ -15,6 +15,7 @@ class TaskBox extends StatefulWidget {
 }
 
 class _TaskBoxState extends State<TaskBox> {
+  bool _hasNotification = false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -55,9 +56,17 @@ class _TaskBoxState extends State<TaskBox> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      _getDueDate(state.tasks).toString(),
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    InkWell(
+                      child: _hasNotification
+                          ? Icon(Icons.notifications,
+                              color: context.theme.primaryColor)
+                          : const Icon(Icons.notifications_off,
+                              color: Colors.grey),
+                      onTap: () => setState(
+                        () {
+                          _hasNotification = !_hasNotification;
+                        },
+                      ),
                     ),
                     Checkbox(
                       side: WidgetStateBorderSide.resolveWith(
