@@ -11,6 +11,7 @@ _$TaskImpl _$$TaskImplFromJson(Map<String, dynamic> json) => _$TaskImpl(
       description: json['description'] as String,
       dueDate: DateTime.parse(json['dueDate'] as String),
       isCompleted: json['isCompleted'] as bool,
+      notificationId: json['notificationId'] as int?,
     );
 
 Map<String, dynamic> _$$TaskImplToJson(_$TaskImpl instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$$TaskImplToJson(_$TaskImpl instance) =>
       'description': instance.description,
       'dueDate': instance.dueDate.toIso8601String(),
       'isCompleted': instance.isCompleted,
+      'notificationId': instance.notificationId,
     };

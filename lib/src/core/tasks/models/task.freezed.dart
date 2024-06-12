@@ -24,6 +24,7 @@ mixin _$Task {
   String get description => throw _privateConstructorUsedError;
   DateTime get dueDate => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  int? get notificationId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,11 @@ abstract class $TaskCopyWith<$Res> {
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
   $Res call(
-      {String id, String description, DateTime dueDate, bool isCompleted});
+      {String id,
+      String description,
+      DateTime dueDate,
+      bool isCompleted,
+      int? notificationId});
 }
 
 /// @nodoc
@@ -56,6 +61,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
     Object? description = null,
     Object? dueDate = null,
     Object? isCompleted = null,
+    Object? notificationId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -74,6 +80,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -86,7 +96,11 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id, String description, DateTime dueDate, bool isCompleted});
+      {String id,
+      String description,
+      DateTime dueDate,
+      bool isCompleted,
+      int? notificationId});
 }
 
 /// @nodoc
@@ -103,6 +117,7 @@ class __$$TaskImplCopyWithImpl<$Res>
     Object? description = null,
     Object? dueDate = null,
     Object? isCompleted = null,
+    Object? notificationId = freezed,
   }) {
     return _then(_$TaskImpl(
       id: null == id
@@ -121,6 +136,10 @@ class __$$TaskImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      notificationId: freezed == notificationId
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -132,7 +151,8 @@ class _$TaskImpl implements _Task {
       {required this.id,
       required this.description,
       required this.dueDate,
-      required this.isCompleted});
+      required this.isCompleted,
+      this.notificationId});
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskImplFromJson(json);
@@ -145,10 +165,12 @@ class _$TaskImpl implements _Task {
   final DateTime dueDate;
   @override
   final bool isCompleted;
+  @override
+  final int? notificationId;
 
   @override
   String toString() {
-    return 'Task(id: $id, description: $description, dueDate: $dueDate, isCompleted: $isCompleted)';
+    return 'Task(id: $id, description: $description, dueDate: $dueDate, isCompleted: $isCompleted, notificationId: $notificationId)';
   }
 
   @override
@@ -161,13 +183,15 @@ class _$TaskImpl implements _Task {
                 other.description == description) &&
             (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
             (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted));
+                other.isCompleted == isCompleted) &&
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, description, dueDate, isCompleted);
+  int get hashCode => Object.hash(
+      runtimeType, id, description, dueDate, isCompleted, notificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +212,8 @@ abstract class _Task implements Task {
       {required final String id,
       required final String description,
       required final DateTime dueDate,
-      required final bool isCompleted}) = _$TaskImpl;
+      required final bool isCompleted,
+      final int? notificationId}) = _$TaskImpl;
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
 
@@ -200,6 +225,8 @@ abstract class _Task implements Task {
   DateTime get dueDate;
   @override
   bool get isCompleted;
+  @override
+  int? get notificationId;
   @override
   @JsonKey(ignore: true)
   _$$TaskImplCopyWith<_$TaskImpl> get copyWith =>

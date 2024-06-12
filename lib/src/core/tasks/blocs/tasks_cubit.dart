@@ -46,6 +46,14 @@ class TasksCubit extends Cubit<TasksState> {
     }
   }
 
+  Future<void> setTaskNotificationId(String taskId, int notificationId) async {
+    final task = state.tasks.firstWhere((task) => task.id == taskId);
+    final updatedTask = task.copyWith(notificationId: notificationId);
+    final updatedTasks =
+        state.tasks.map((t) => t.id == taskId ? updatedTask : t).toList();
+    emit(TasksState.loaded(updatedTasks));
+  }
+
   void deleteTask(String taskId) async {
     final rollbackState = state.tasks;
     try {

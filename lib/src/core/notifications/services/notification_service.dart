@@ -18,9 +18,10 @@ class NotificationService {
     return service;
   }
 
-  Future<void> scheduleNotification({required String description}) {
-    return notificationPlugin.zonedSchedule(
-        0,
+  Future<int> scheduleNotification({required String description}) async {
+    const notificationId = 1;
+    await notificationPlugin.zonedSchedule(
+        notificationId,
         "Remember me",
         description,
         tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
@@ -32,6 +33,7 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+    return notificationId;
   }
 
   Future<void> cancelNotification(int id) {

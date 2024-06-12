@@ -73,7 +73,8 @@ class _TaskBoxState extends State<TaskBox> {
                           } else {
                             context
                                 .get<NotificationService>()
-                                .cancelNotification(0);
+                                .cancelNotification(
+                                    widget.task.notificationId!);
                           }
                           _hasNotification = !_hasNotification;
                         },
@@ -102,7 +103,6 @@ class _TaskBoxState extends State<TaskBox> {
     );
   }
 
-//TODO: make task accessible in widget so u dont have to pass list so often
   Future<void> _scheduleNotification(
     List<Task> tasks,
     BuildContext ctx, {
@@ -110,8 +110,11 @@ class _TaskBoxState extends State<TaskBox> {
       seconds: 20,
     ),
   }) async {
+    final cubit = context.read<TasksCubit>();
     final notificationService = ctx.get<NotificationService>();
-    await notificationService.scheduleNotification(
+    final notificationId = await notificationService.scheduleNotification(
         description: widget.task.description);
+
+    cubit.setTaskNotificationId(widget.task.id, notificationId);
   }
 }
