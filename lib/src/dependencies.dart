@@ -21,7 +21,7 @@ extension BuildContextDIX on BuildContext {
 
 Future<void> registerLocalNotifications() async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  GetIt.instance.registerSingleton(
-      NotificationService.create(flutterLocalNotificationsPlugin));
+  final notificationService =
+      await NotificationService.create(flutterLocalNotificationsPlugin);
+  GetIt.instance.registerSingleton(notificationService);
 }

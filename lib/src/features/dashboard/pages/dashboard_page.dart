@@ -92,7 +92,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   for (final task
                       in state.tasks.where((t) => t.dueDate.isToday))
                     TaskBox(
-                      taskId: task.id,
+                      task,
                     ),
                   const SizedBox(height: 64),
                 ],

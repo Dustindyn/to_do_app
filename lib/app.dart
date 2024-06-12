@@ -15,8 +15,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("starting app with");
-    print(context.get<FlutterLocalNotificationsPlugin>());
     return BlocProvider<TasksCubit>(
       create: (context) => TasksCubit(
           GetTasks(context.get<SharedPrefsWrapper>()),

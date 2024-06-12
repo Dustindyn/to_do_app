@@ -1,18 +1,16 @@
 import 'package:animated_line_through/animated_line_through.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:you_do/src/core/notifications/services/notification_service.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:you_do/src/dependencies.dart';
 
 class TaskBox extends StatefulWidget {
-  final String taskId;
+  final Task task;
 
-  const TaskBox({required this.taskId, super.key});
+  const TaskBox(this.task, {super.key});
 
   @override
   State<TaskBox> createState() => _TaskBoxState();
@@ -41,9 +39,9 @@ class _TaskBoxState extends State<TaskBox> {
                   children: [
                     AnimatedLineThrough(
                       duration: const Duration(milliseconds: 400),
-                      isCrossed: _getIsChecked(state.tasks),
+                      isCrossed: widget.task.isCompleted,
                       child: Text(
-                        _getDescription(state.tasks),
+                        widget.task.description,
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -52,7 +50,7 @@ class _TaskBoxState extends State<TaskBox> {
                     InkWell(
                       child: const Icon(Icons.close, color: Colors.grey),
                       onTap: () =>
-                          context.read<TasksCubit>().deleteTask(widget.taskId),
+                          context.read<TasksCubit>().deleteTask(widget.task.id),
                     )
                   ],
                 ),
@@ -68,7 +66,15 @@ class _TaskBoxState extends State<TaskBox> {
                               color: Colors.grey),
                       onTap: () => setState(
                         () {
-                          _scheduleNotification(context);
+                          if (!_hasNotification) {
+                            showTimePicker(
+                                context: context, initialTime: TimeOfDay.now());
+                            _scheduleNotification(state.tasks, context);
+                          } else {
+                            context
+                                .get<NotificationService>()
+                                .cancelNotification(0);
+                          }
                           _hasNotification = !_hasNotification;
                         },
                       ),
@@ -78,11 +84,11 @@ class _TaskBoxState extends State<TaskBox> {
                         (states) =>
                             const BorderSide(width: 1.0, color: Colors.grey),
                       ),
-                      value: _getIsChecked(state.tasks),
+                      value: widget.task.isCompleted,
                       onChanged: (_) {
                         setState(() {
                           context.read<TasksCubit>().setTaskCompletion(
-                              widget.taskId, !_getIsChecked(state.tasks));
+                              widget.task.id, !widget.task.isCompleted);
                         });
                       },
                     ),
@@ -96,41 +102,16 @@ class _TaskBoxState extends State<TaskBox> {
     );
   }
 
+//TODO: make task accessible in widget so u dont have to pass list so often
   Future<void> _scheduleNotification(
+    List<Task> tasks,
     BuildContext ctx, {
     Duration inDuration = const Duration(
       seconds: 20,
     ),
   }) async {
-    final notificationPlugin = ctx.get<FlutterLocalNotificationsPlugin>();
-    await notificationPlugin.zonedSchedule(
-        0,
-        "Test Title",
-        "Test body",
-        tz.TZDateTime.now(tz.local).add(inDuration),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'your channel id', 'your channel name',
-              channelDescription: 'your channel description'),
-        ),
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
-    print("were here");
-  }
-
-  bool _getIsChecked(List<Task> tasks) {
-    final task = tasks.firstWhere((task) => task.id == widget.taskId);
-    return task.isCompleted;
-  }
-
-  DateTime _getDueDate(List<Task> tasks) {
-    final task = tasks.firstWhere((task) => task.id == widget.taskId);
-    return task.dueDate;
-  }
-
-  String _getDescription(List<Task> tasks) {
-    final task = tasks.firstWhere((task) => task.id == widget.taskId);
-    return task.description;
+    final notificationService = ctx.get<NotificationService>();
+    await notificationService.scheduleNotification(
+        description: widget.task.description);
   }
 }

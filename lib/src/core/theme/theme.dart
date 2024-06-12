@@ -11,6 +11,11 @@ var theme = ThemeData(
   //cardColor: const Color(0xff23374a),
   scaffoldBackgroundColor: const Color(0xff22303c),
   dividerColor: Colors.grey[700],
+  timePickerTheme: const TimePickerThemeData(
+      backgroundColor: Color(0xff22303c),
+      hourMinuteColor: Color(0xff2a3b4a),
+      dialBackgroundColor: Color(0xff2a3b4a),
+      dayPeriodColor: Color(0xffef6c01)),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith(
