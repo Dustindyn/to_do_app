@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -18,13 +19,14 @@ class NotificationService {
     return service;
   }
 
-  Future<int> scheduleNotification({required String description}) async {
+  Future<int> scheduleNotification(tz.TZDateTime dateTime,
+      {required String description}) async {
     const notificationId = 1;
     await notificationPlugin.zonedSchedule(
         notificationId,
         "Remember me",
         description,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
+        dateTime,
         const NotificationDetails(
           android: AndroidNotificationDetails(
               'your channel id', 'your channel name',

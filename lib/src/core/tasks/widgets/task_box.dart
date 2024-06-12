@@ -6,6 +6,8 @@ import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 import 'package:you_do/src/dependencies.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 
 class TaskBox extends StatefulWidget {
   final Task task;
@@ -68,8 +70,11 @@ class _TaskBoxState extends State<TaskBox> {
                         () {
                           if (!_hasNotification) {
                             showTimePicker(
-                                context: context, initialTime: TimeOfDay.now());
-                            _scheduleNotification(state.tasks, context);
+                                    context: context,
+                                    initialTime: TimeOfDay.now())
+                                .then((time) => time != null
+                                    ? _scheduleNotification(context, time)
+                                    : null);
                           } else {
                             context
                                 .get<NotificationService>()
@@ -104,16 +109,21 @@ class _TaskBoxState extends State<TaskBox> {
   }
 
   Future<void> _scheduleNotification(
-    List<Task> tasks,
-    BuildContext ctx, {
-    Duration inDuration = const Duration(
-      seconds: 20,
-    ),
-  }) async {
+    BuildContext ctx,
+    TimeOfDay time,
+  ) async {
     final cubit = context.read<TasksCubit>();
     final notificationService = ctx.get<NotificationService>();
-    final notificationId = await notificationService.scheduleNotification(
-        description: widget.task.description);
+    final dateTime = tz.TZDateTime(
+      tz.local,
+      widget.task.dueDate.year,
+      widget.task.dueDate.month,
+      widget.task.dueDate.day,
+      time.hour,
+      time.minute,
+    );
+    final notificationId = await notificationService
+        .scheduleNotification(dateTime, description: widget.task.description);
 
     cubit.setTaskNotificationId(widget.task.id, notificationId);
   }
