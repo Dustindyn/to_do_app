@@ -5,8 +5,9 @@ import 'package:timezone/data/latest_all.dart' as tz;
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationPlugin;
-  //TODO: take id as param for notifications
-  const NotificationService(this.notificationPlugin);
+  int nextNotificationId = 0;
+
+  NotificationService(this.notificationPlugin);
 
   static Future<NotificationService> create(
       FlutterLocalNotificationsPlugin notificationPlugin) async {
@@ -21,10 +22,9 @@ class NotificationService {
 
   Future<int> scheduleNotification(DateTime dateTime,
       {required String description}) async {
-    const notificationId = 1;
     final durationUntilNotification = _getDurationUntilNotification(dateTime);
     await notificationPlugin.zonedSchedule(
-        notificationId,
+        nextNotificationId++,
         "Remember me",
         description,
         tz.TZDateTime.now(tz.local).add(durationUntilNotification),
@@ -36,7 +36,7 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
-    return notificationId;
+    return nextNotificationId;
   }
 
   Future<void> cancelNotification(int id) {
