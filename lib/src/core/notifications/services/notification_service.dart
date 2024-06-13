@@ -19,14 +19,15 @@ class NotificationService {
     return service;
   }
 
-  Future<int> scheduleNotification(tz.TZDateTime dateTime,
+  Future<int> scheduleNotification(DateTime dateTime,
       {required String description}) async {
     const notificationId = 1;
+    final durationUntilNotification = _getDurationUntilNotification(dateTime);
     await notificationPlugin.zonedSchedule(
         notificationId,
         "Remember me",
         description,
-        dateTime,
+        tz.TZDateTime.now(tz.local).add(durationUntilNotification),
         const NotificationDetails(
           android: AndroidNotificationDetails(
               'your channel id', 'your channel name',
@@ -56,6 +57,10 @@ class NotificationService {
         iOS: initializationSettingsDarwin,
         macOS: initializationSettingsDarwin,
         linux: initializationSettingsLinux);
+  }
+
+  Duration _getDurationUntilNotification(DateTime notificationTime) {
+    return notificationTime.difference(DateTime.now());
   }
 
   void _onDidReceiveNotificationResponse(

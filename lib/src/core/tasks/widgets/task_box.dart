@@ -114,17 +114,14 @@ class _TaskBoxState extends State<TaskBox> {
   ) async {
     final cubit = context.read<TasksCubit>();
     final notificationService = ctx.get<NotificationService>();
-    final dateTime = tz.TZDateTime(
-      tz.local,
-      widget.task.dueDate.year,
-      widget.task.dueDate.month,
-      widget.task.dueDate.day,
-      time.hour,
-      time.minute,
-    );
+    final dateTime = DateTime(
+        widget.task.dueDate.year,
+        widget.task.dueDate.month,
+        widget.task.dueDate.day,
+        time.hour,
+        time.minute);
     final notificationId = await notificationService
         .scheduleNotification(dateTime, description: widget.task.description);
-
     cubit.setTaskNotificationId(widget.task.id, notificationId);
   }
 }

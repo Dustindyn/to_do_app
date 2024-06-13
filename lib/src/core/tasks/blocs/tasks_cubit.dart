@@ -52,6 +52,7 @@ class TasksCubit extends Cubit<TasksState> {
     final updatedTasks =
         state.tasks.map((t) => t.id == taskId ? updatedTask : t).toList();
     emit(TasksState.loaded(updatedTasks));
+    await _saveTasks(updatedTasks);
   }
 
   void deleteTask(String taskId) async {

@@ -51,7 +51,7 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
                     for (final task in state.tasks
                         .where((t) => t.dueDate.isSameDate(_selectedDate)))
                       TaskBox(
-                        taskId: task.id,
+                        task,
                       ),
                   ],
                 ),
