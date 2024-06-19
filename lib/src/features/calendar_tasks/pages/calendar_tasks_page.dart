@@ -25,7 +25,9 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
   Widget build(BuildContext context) {
     //TODO: use selected date as initial date for fab
     return Scaffold(
-      floatingActionButton: const AddTaskFab(),
+      floatingActionButton: AddTaskFab(
+        initialDate: _selectedDate,
+      ),
       body: BlocBuilder<TasksCubit, TasksState>(
         builder: (context, state) {
           return Column(
@@ -82,6 +84,7 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
       if (value != null) {
         setState(() {
           _selectedMonth = value;
+          _selectedDate = value;
         });
       }
     });

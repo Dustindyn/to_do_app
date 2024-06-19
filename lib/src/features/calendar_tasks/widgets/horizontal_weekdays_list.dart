@@ -11,21 +11,23 @@ class HorizontalWeekdaysList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weekdays = getDaysInWeek();
+    final days = selectedDate.daysInMonth;
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: weekdays.length,
+        itemCount: days,
         itemBuilder: (context, index) {
+          final date =
+              DateTime(selectedDate.year, selectedDate.month, index + 1);
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12.0,
               horizontal: 16,
             ),
             child: GestureDetector(
-                onTap: () => onPressed(weekdays[index]),
-                child: WeekdayBox(weekdays[index],
-                    isSelected: weekdays[index].isSameDate(selectedDate))),
+                onTap: () => onPressed(date),
+                child: WeekdayBox(date,
+                    isSelected: date.isSameDate(selectedDate))),
           );
         });
   }

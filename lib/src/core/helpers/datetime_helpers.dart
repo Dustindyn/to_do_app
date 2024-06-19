@@ -16,6 +16,12 @@ extension DateHelpers on DateTime {
     return now.day == day && now.month == month && now.year == year;
   }
 
+  int get daysInMonth {
+    return DateTime(year, month + 1, 1)
+        .difference(DateTime(year, month, 1))
+        .inDays;
+  }
+
   bool isSameDate(DateTime other) {
     return year == other.year && month == other.month && day == other.day;
   }

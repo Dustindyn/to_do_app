@@ -3,7 +3,8 @@ import 'package:you_do/src/core/tasks/widgets/add_task_dialog.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
 class AddTaskFab extends StatelessWidget {
-  const AddTaskFab({super.key});
+  final DateTime? initialDate;
+  const AddTaskFab({this.initialDate, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,9 @@ class AddTaskFab extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return AddTaskDialog();
+        return AddTaskDialog(
+          initialDate: initialDate,
+        );
       },
     );
   }

@@ -5,7 +5,8 @@ import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key});
+  final DateTime? initialDate;
+  const AddTaskDialog({this.initialDate, super.key});
 
   @override
   State<AddTaskDialog> createState() => _AddTaskDialogState();
@@ -68,7 +69,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     //TODO: change calendar color to match scaffold color
     final date = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: widget.initialDate ?? DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2025),
     );
