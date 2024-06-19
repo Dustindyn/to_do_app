@@ -46,7 +46,7 @@ class TasksCubit extends Cubit<TasksState> {
     }
   }
 
-  Future<void> setTaskNotificationId(String taskId, int notificationId) async {
+  Future<void> setTaskNotificationId(String taskId, int? notificationId) async {
     final task = state.tasks.firstWhere((task) => task.id == taskId);
     final updatedTask = task.copyWith(notificationId: notificationId);
     final updatedTasks =
@@ -62,7 +62,7 @@ class TasksCubit extends Cubit<TasksState> {
           state.tasks.where((task) => task.id != taskId).toList();
       emit(TasksState.loaded(updatedTasks));
       await _saveTasks(updatedTasks);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       emit(TasksState.error([...rollbackState]));
     }
   }
@@ -79,7 +79,7 @@ class TasksCubit extends Cubit<TasksState> {
       final updatedTasks = [...state.tasks, newTask];
       emit(TasksState.loaded(updatedTasks));
       await _saveTasks(updatedTasks);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       emit(TasksState.error([...rollbackState]));
     }
   }

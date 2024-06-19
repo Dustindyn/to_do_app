@@ -6,8 +6,6 @@ import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 import 'package:you_do/src/dependencies.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest_all.dart' as tz;
 
 class TaskBox extends StatefulWidget {
   final Task task;
@@ -19,7 +17,6 @@ class TaskBox extends StatefulWidget {
 }
 
 class _TaskBoxState extends State<TaskBox> {
-  bool _hasNotification = false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -61,14 +58,14 @@ class _TaskBoxState extends State<TaskBox> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      child: _hasNotification
+                      child: widget.task.notificationId != null
                           ? Icon(Icons.notifications,
                               color: context.theme.primaryColor)
                           : const Icon(Icons.notifications_off,
                               color: Colors.grey),
                       onTap: () => setState(
                         () {
-                          if (!_hasNotification) {
+                          if (widget.task.notificationId == null) {
                             showTimePicker(
                                     context: context,
                                     initialTime: TimeOfDay.now())
@@ -81,7 +78,6 @@ class _TaskBoxState extends State<TaskBox> {
                                 .cancelNotification(
                                     widget.task.notificationId!);
                           }
-                          _hasNotification = !_hasNotification;
                         },
                       ),
                     ),
@@ -123,5 +119,12 @@ class _TaskBoxState extends State<TaskBox> {
     final notificationId = await notificationService
         .scheduleNotification(dateTime, description: widget.task.description);
     cubit.setTaskNotificationId(widget.task.id, notificationId);
+  }
+
+  Future<void> _cancelNotification(BuildContext ctx) async {
+    final cubit = context.read<TasksCubit>();
+    final notificationService = ctx.get<NotificationService>();
+    await notificationService.cancelNotification(widget.task.notificationId!);
+    cubit.setTaskNotificationId(widget.task.id, null);
   }
 }
