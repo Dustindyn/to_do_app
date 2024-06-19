@@ -11,7 +11,7 @@ class TaskBox extends StatefulWidget {
   final Task task;
 
   const TaskBox(this.task, {super.key});
-
+  //TODO: on close cancel notifications
   @override
   State<TaskBox> createState() => _TaskBoxState();
 }
@@ -73,10 +73,7 @@ class _TaskBoxState extends State<TaskBox> {
                                     ? _scheduleNotification(context, time)
                                     : null);
                           } else {
-                            context
-                                .get<NotificationService>()
-                                .cancelNotification(
-                                    widget.task.notificationId!);
+                            _cancelNotification(context);
                           }
                         },
                       ),
@@ -126,5 +123,14 @@ class _TaskBoxState extends State<TaskBox> {
     final notificationService = ctx.get<NotificationService>();
     await notificationService.cancelNotification(widget.task.notificationId!);
     cubit.setTaskNotificationId(widget.task.id, null);
+  }
+
+  Future<void> _deleteTask(BuildContext ctx) async {
+    if (widget.task.notificationId != null) {
+      ctx
+          .get<NotificationService>()
+          .cancelNotification(widget.task.notificationId!);
+    }
+    context.read<TasksCubit>().deleteTask(widget.task.id);
   }
 }
