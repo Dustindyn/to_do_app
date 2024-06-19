@@ -4,6 +4,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationPlugin;
+  //TODO: next notificationId should be stored in shared prefs so you dont use same id if you schedule across app starts
   int nextNotificationId = 0;
 
   NotificationService(this.notificationPlugin);
@@ -23,7 +24,7 @@ class NotificationService {
       {required String description}) async {
     final durationUntilNotification = _getDurationUntilNotification(dateTime);
     await notificationPlugin.zonedSchedule(
-        nextNotificationId++,
+        nextNotificationId,
         "Remember me",
         description,
         tz.TZDateTime.now(tz.local).add(durationUntilNotification),
@@ -35,7 +36,7 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
-    return nextNotificationId;
+    return nextNotificationId++;
   }
 
   Future<void> cancelNotification(int id) {

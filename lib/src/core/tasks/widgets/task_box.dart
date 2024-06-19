@@ -11,7 +11,6 @@ class TaskBox extends StatefulWidget {
   final Task task;
 
   const TaskBox(this.task, {super.key});
-  //TODO: on close cancel notifications
   @override
   State<TaskBox> createState() => _TaskBoxState();
 }

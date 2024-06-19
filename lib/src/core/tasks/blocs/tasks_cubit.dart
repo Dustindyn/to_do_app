@@ -41,7 +41,7 @@ class TasksCubit extends Cubit<TasksState> {
           state.tasks.map((t) => t.id == taskId ? updatedTask : t).toList();
       emit(TasksState.loaded(updatedTasks));
       await _saveTasks(updatedTasks);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       emit(TasksState.error([...rollbackState]));
     }
   }
