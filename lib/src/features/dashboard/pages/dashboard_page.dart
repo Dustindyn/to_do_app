@@ -28,7 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const AddTaskFab(),
+      floatingActionButton: AddTaskFab(initialDate: DateTime.now()),
       body: SingleChildScrollView(
         child: BlocConsumer<TasksCubit, TasksState>(
           listener: (context, state) => state.maybeWhen(
