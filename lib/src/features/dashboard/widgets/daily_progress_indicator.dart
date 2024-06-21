@@ -28,8 +28,12 @@ class DailyProgressIndicator extends StatelessWidget {
               animateFromLastPercent: true,
               percent: state.tasks
                       .where((t) => t.isCompleted && t.dueDate.isToday)
-                      .length /
-                  state.tasks.where((t) => t.dueDate.isToday).length,
+                      .isEmpty
+                  ? 0
+                  : state.tasks
+                          .where((t) => t.isCompleted && t.dueDate.isToday)
+                          .length /
+                      state.tasks.where((t) => t.dueDate.isToday).length,
               progressColor: context.theme.primaryColor,
               backgroundColor: const Color(0xff384c5e),
             ),
