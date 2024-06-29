@@ -67,8 +67,18 @@ class _TaskBoxState extends State<TaskBox> {
                           : const Icon(Icons.notifications_off,
                               color: Colors.grey),
                       onTap: () => setState(
-                        () {
+                        () async {
                           if (widget.task.notificationId == null) {
+                            if (!(await context
+                                .get<NotificationService>()
+                                .hasPermission())) {
+                              if (Platform.isIOS) {
+                                showErrorToast(context,
+                                    context.texts.missing_permission_error);
+                              }
+                              return;
+                            }
+                            //TODO: keine zeit erlauben vor now
                             showTimePicker(
                                     context: context,
                                     initialTime: TimeOfDay.now())
@@ -111,12 +121,6 @@ class _TaskBoxState extends State<TaskBox> {
     final cubit = context.read<TasksCubit>();
     final notificationService = ctx.get<NotificationService>();
 
-    if (!(await notificationService.hasPermission())) {
-      if (Platform.isIOS) {
-        showErrorToast(context, context.texts.missing_permission_error);
-      }
-      return;
-    }
     final dateTime = DateTime(
         widget.task.dueDate.year,
         widget.task.dueDate.month,
