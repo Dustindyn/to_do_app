@@ -53,6 +53,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             Row(
               children: [
                 InkWell(
+                  onTap: () => _selectDate(context),
                   child: Container(
                     width: 150,
                     decoration: BoxDecoration(

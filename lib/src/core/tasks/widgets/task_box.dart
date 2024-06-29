@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:animated_line_through/animated_line_through.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:you_do/l10n/context_text_extension.dart';
 import 'package:you_do/src/core/notifications/services/notification_service.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
+import 'package:you_do/src/core/toasts/show_error_toast.dart';
 import 'package:you_do/src/dependencies.dart';
 
 class TaskBox extends StatefulWidget {
@@ -106,6 +110,13 @@ class _TaskBoxState extends State<TaskBox> {
   ) async {
     final cubit = context.read<TasksCubit>();
     final notificationService = ctx.get<NotificationService>();
+
+    if (!(await notificationService.hasPermission())) {
+      if (Platform.isIOS) {
+        showErrorToast(context, context.texts.missing_permission_error);
+      }
+      return;
+    }
     final dateTime = DateTime(
         widget.task.dueDate.year,
         widget.task.dueDate.month,

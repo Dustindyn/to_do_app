@@ -11,5 +11,6 @@
     "add_task_hint": "Enter task description",
     "add_task_submit": "Add Task",
     "error_tasks": "Oops! Something went wrong while updating tasks. Please try again later",
-    "calendar_tasks_title": "Your Tasks"
+    "calendar_tasks_title": "Your Tasks",
+    "missing_permission_error": "Missing permissions to send you notifications. Please enable the permission in your devices app settings."
 }
