@@ -22,9 +22,13 @@ class AddTaskFab extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
-          child: AddTaskDialog(
-            initialDate: initialDate,
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Center(
+            child: AddTaskDialog(
+              initialDate: initialDate,
+            ),
           ),
         );
       },
