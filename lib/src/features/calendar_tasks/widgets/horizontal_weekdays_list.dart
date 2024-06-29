@@ -17,12 +17,16 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
   late ScrollController _scrollController;
   late int days;
   late DateTime _selectedDate;
+
+  double get _selectedDateScrollOffset {
+    return _selectedDate.day > 6 ? (_selectedDate.day + 6) * 48.0 : 0.0;
+  }
+
   @override
   initState() {
     _selectedDate = DateTime.now();
-    _scrollController = ScrollController(
-        initialScrollOffset:
-            _selectedDate.day > 6 ? (_selectedDate.day + 6) * 48.0 : 0.0);
+    _scrollController =
+        ScrollController(initialScrollOffset: _selectedDateScrollOffset);
     days = _selectedDate.daysInMonth;
     super.initState();
   }
@@ -77,6 +81,7 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
       if (value != null) {
         setState(() {
           _selectedDate = value;
+          _scrollController.jumpTo(_selectedDateScrollOffset);
         });
       }
     });
