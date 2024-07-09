@@ -21,12 +21,12 @@ class NotificationService {
     return service;
   }
 
-  Future<int> scheduleNotification(DateTime dateTime,
+  Future<int> scheduleNotification(DateTime dateTime, String title,
       {required String description}) async {
     final durationUntilNotification = _getDurationUntilNotification(dateTime);
     await notificationPlugin.zonedSchedule(
         nextNotificationId,
-        "Remember me",
+        title,
         description,
         tz.TZDateTime.now(tz.local).add(durationUntilNotification),
         const NotificationDetails(

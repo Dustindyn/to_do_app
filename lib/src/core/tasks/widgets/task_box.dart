@@ -127,8 +127,9 @@ class _TaskBoxState extends State<TaskBox> {
         widget.task.dueDate.day,
         time.hour,
         time.minute);
-    final notificationId = await notificationService
-        .scheduleNotification(dateTime, description: widget.task.description);
+    final notificationId = await notificationService.scheduleNotification(
+        dateTime, context.texts.notification_title,
+        description: widget.task.description);
     cubit.setTaskNotificationId(widget.task.id, notificationId);
   }
 

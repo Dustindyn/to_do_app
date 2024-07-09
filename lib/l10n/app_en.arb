@@ -5,6 +5,7 @@
     "daily_tasks": "Todays Tasks",
     "dashboard": "Dashboard",
     "dashboard_daily_progress": "Todays Progress",
+    "notification_title": "Reminder",
     "tasks": "Tasks",
     "add_task_new_task": "New Task",
     "add_task_description": "Description",
