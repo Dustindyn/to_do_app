@@ -30,9 +30,8 @@ class NotificationService {
         description,
         tz.TZDateTime.now(tz.local).add(durationUntilNotification),
         const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'your channel id', 'your channel name',
-              channelDescription: 'your channel description'),
+          android: AndroidNotificationDetails('1', 'YouDoLocalNotifications',
+              channelDescription: 'Local Notifications for the YouDo App'),
         ),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
