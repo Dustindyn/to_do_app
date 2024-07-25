@@ -7,7 +7,9 @@ import 'package:you_do/src/features/calendar_tasks/widgets/month_picker.dart';
 import 'package:you_do/src/features/calendar_tasks/widgets/weekday_box.dart';
 
 class HorizontalWeekdaysList extends StatefulWidget {
-  const HorizontalWeekdaysList({super.key});
+  final Function _callback;
+  final DateTime _selectedDate;
+  const HorizontalWeekdaysList(this._callback, this._selectedDate, {super.key});
 
   @override
   State<HorizontalWeekdaysList> createState() => _HorizontalWeekdaysListState();
@@ -16,29 +18,29 @@ class HorizontalWeekdaysList extends StatefulWidget {
 class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
   late ScrollController _scrollController;
   late int days;
-  late DateTime _selectedDate;
 
   double get _selectedDateScrollOffset {
-    return _selectedDate.day > 6 ? (_selectedDate.day + 6) * 48.0 : 0.0;
+    return widget._selectedDate.day > 6
+        ? (widget._selectedDate.day + 6) * 48.0
+        : 0.0;
   }
 
   @override
   initState() {
-    _selectedDate = DateTime.now();
     _scrollController =
         ScrollController(initialScrollOffset: _selectedDateScrollOffset);
-    days = _selectedDate.daysInMonth;
+    days = widget._selectedDate.daysInMonth;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final days = _selectedDate.daysInMonth;
+    final days = widget._selectedDate.daysInMonth;
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MonthPicker(_selectedDate, onPressed: _onMonthPicked),
+          MonthPicker(widget._selectedDate, onPressed: _onMonthPicked),
           const SizedBox(height: 8),
           SizedBox(
             height: 90,
@@ -48,19 +50,17 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
                 controller: _scrollController,
                 itemCount: days,
                 itemBuilder: (context, index) {
-                  final date = DateTime(
-                      _selectedDate.year, _selectedDate.month, index + 1);
+                  final date = DateTime(widget._selectedDate.year,
+                      widget._selectedDate.month, index + 1);
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 12.0,
                       horizontal: 16,
                     ),
                     child: GestureDetector(
-                        onTap: () => setState(() {
-                              _selectedDate = date;
-                            }),
+                        onTap: () => widget._callback(date),
                         child: WeekdayBox(date,
-                            isSelected: date.isSameDate(_selectedDate))),
+                            isSelected: date.isSameDate(widget._selectedDate))),
                   );
                 }),
           ),
@@ -72,15 +72,16 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
   _onMonthPicked() {
     showMonthPicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: widget._selectedDate,
       backgroundColor: context.theme.scaffoldBackgroundColor,
       unselectedMonthTextColor: Colors.white,
       selectedMonthTextColor: Colors.white,
       headerColor: context.theme.cardColor,
     ).then((value) {
       if (value != null) {
+        widget._callback(value);
+        //TODO: the scrolling doesn't really work because the callback triggers this to rebuild
         setState(() {
-          _selectedDate = value;
           _scrollController.jumpTo(_selectedDateScrollOffset);
         });
       }

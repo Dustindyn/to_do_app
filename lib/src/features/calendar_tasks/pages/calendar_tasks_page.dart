@@ -18,7 +18,13 @@ class CalendarTasksPage extends StatefulWidget {
 }
 
 class _CalendarTasksPageState extends State<CalendarTasksPage> {
-  final DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
+
+  void _callback(DateTime newDate) {
+    setState(() {
+      _selectedDate = newDate;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,7 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HorizontalWeekdaysList(),
+              HorizontalWeekdaysList(_callback, _selectedDate),
               Divider(color: context.theme.dividerColor),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
