@@ -20,7 +20,18 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
   late int days;
 
   double _getSelectedDateScrollOffset(DateTime date) {
-    return date.day > 6 ? (date.day + 6) * 48.0 : 0.0;
+    // Calculate the index of the selected date (0-based)
+    int selectedIndex = date.day - 1;
+
+    // Calculate the offset, considering the width of each WeekdayBox (48 pixels)
+    // and the horizontal padding (16 pixels on each side)
+    double offset = selectedIndex * (34.5 + 32.0);
+
+    // Adjust the offset to account for the padding at the start
+    offset -= 16;
+
+    // Ensure the offset is never negative
+    return offset < 0 ? 0 : offset;
   }
 
   @override
