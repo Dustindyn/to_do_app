@@ -36,6 +36,12 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
   Widget build(BuildContext context) {
     return BlocBuilder<SelectedDateCubit, DateTime>(
       builder: (context, selectedDate) {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+              _getSelectedDateScrollOffset(selectedDate),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeIn);
+        }
         return SizedBox(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,10 +91,6 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
     ).then((value) {
       if (value != null) {
         context.read<SelectedDateCubit>().selectDate(value);
-        //TODO: the scrolling doesn't really work because the callback triggers this to rebuild
-        setState(() {
-          _scrollController.jumpTo(_getSelectedDateScrollOffset(value));
-        });
       }
     });
   }
