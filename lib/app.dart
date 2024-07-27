@@ -8,16 +8,26 @@ import 'package:you_do/src/core/tasks/usecases/save_tasks.dart';
 import 'package:you_do/src/core/theme/theme.dart';
 import 'package:you_do/src/core/wrappers/shared_prefs_wrapper.dart';
 import 'package:you_do/src/dependencies.dart';
+import 'package:you_do/src/features/calendar_tasks/blocs/selected_date_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TasksCubit>(
-      create: (context) => TasksCubit(
-          GetTasks(context.get<SharedPrefsWrapper>()),
-          SaveTasks(context.get<SharedPrefsWrapper>())),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TasksCubit>(
+          create: (context) => TasksCubit(
+              GetTasks(context.get<SharedPrefsWrapper>()),
+              SaveTasks(context.get<SharedPrefsWrapper>())),
+        ),
+        BlocProvider<SelectedDateCubit>(
+          create: (context) => SelectedDateCubit(
+            DateTime.now(),
+          ),
+        )
+      ],
       child: Material(
         child: MaterialApp.router(
           routerConfig: router,
