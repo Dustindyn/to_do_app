@@ -6,7 +6,6 @@ import 'package:you_do/src/core/helpers/datetime_helpers.dart';
 import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/tasks/models/task.dart';
 import 'package:you_do/src/core/tasks/widgets/task_box.dart';
-import 'package:you_do/src/core/theme/theme_extension.dart';
 import 'package:you_do/src/core/toasts/show_error_toast.dart';
 import 'package:you_do/src/features/dashboard/widgets/add_task_fab.dart';
 import 'package:you_do/src/features/dashboard/widgets/daily_progress_indicator.dart';
