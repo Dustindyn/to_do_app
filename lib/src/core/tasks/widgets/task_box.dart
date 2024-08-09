@@ -89,6 +89,7 @@ class _TaskBoxState extends State<TaskBox> {
                                     context: context,
                                     initialTime: TimeOfDay.now())
                                 .then((time) => time != null
+                                    // ignore: use_build_context_synchronously
                                     ? _scheduleNotification(context, time)
                                     : null);
                           } else {
