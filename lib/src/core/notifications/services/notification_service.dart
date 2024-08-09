@@ -50,13 +50,11 @@ class NotificationService {
   InitializationSettings _buildInitializationSettings() {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
-    final DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-            onDidReceiveLocalNotification: (_, __, ___, ____) =>
-                print("onDidReceiveLocalNotification"));
+    const DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings();
     const LinuxInitializationSettings initializationSettingsLinux =
         LinuxInitializationSettings(defaultActionName: 'Open notification');
-    return InitializationSettings(
+    return const InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: initializationSettingsDarwin,
         macOS: initializationSettingsDarwin,
