@@ -15,9 +15,8 @@ class NotificationService {
     tz.initializeTimeZones();
     final service = NotificationService(notificationPlugin);
     await service.notificationPlugin.initialize(
-        service._buildInitializationSettings(),
-        onDidReceiveNotificationResponse:
-            service._onDidReceiveNotificationResponse);
+      service._buildInitializationSettings(),
+    );
     return service;
   }
 
@@ -63,15 +62,5 @@ class NotificationService {
 
   Duration _getDurationUntilNotification(DateTime notificationTime) {
     return notificationTime.difference(DateTime.now());
-  }
-
-  void _onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse) async {
-    final String? payload = notificationResponse.payload;
-    if (notificationResponse.payload != null) {
-      print('notification payload: $payload');
-    }
-    print(
-        "This print is from onDidReceiveNotificationResponse from the dependencies file");
   }
 }

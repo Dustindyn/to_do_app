@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:you_do/src/core/helpers/datetime_helpers.dart';
@@ -101,6 +100,8 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
       headerColor: context.theme.cardColor,
     ).then((value) {
       if (value != null) {
+        //TODO: fix this
+        // ignore: use_build_context_synchronously
         context.read<SelectedDateCubit>().selectDate(value);
       }
     });

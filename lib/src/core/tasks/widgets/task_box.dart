@@ -73,13 +73,19 @@ class _TaskBoxState extends State<TaskBox> {
                                 .get<NotificationService>()
                                 .hasPermission())) {
                               if (Platform.isIOS) {
-                                showErrorToast(context,
+                                //TODO: fix this
+                                showErrorToast(
+                                    // ignore: use_build_context_synchronously
+                                    context,
+                                    // ignore: use_build_context_synchronously
                                     context.texts.missing_permission_error);
                               }
                               return;
                             }
                             //TODO: keine zeit erlauben vor now
                             showTimePicker(
+                                    //TODO: fix this
+                                    // ignore: use_build_context_synchronously
                                     context: context,
                                     initialTime: TimeOfDay.now())
                                 .then((time) => time != null
@@ -138,14 +144,5 @@ class _TaskBoxState extends State<TaskBox> {
     final notificationService = ctx.get<NotificationService>();
     await notificationService.cancelNotification(widget.task.notificationId!);
     cubit.setTaskNotificationId(widget.task.id, null);
-  }
-
-  Future<void> _deleteTask(BuildContext ctx) async {
-    if (widget.task.notificationId != null) {
-      ctx
-          .get<NotificationService>()
-          .cancelNotification(widget.task.notificationId!);
-    }
-    context.read<TasksCubit>().deleteTask(widget.task.id);
   }
 }
