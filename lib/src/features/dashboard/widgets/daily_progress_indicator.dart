@@ -50,6 +50,7 @@ class DailyProgressIndicator extends StatelessWidget {
                 child: Text(dailyProgressText,
                     style: const TextStyle(
                       fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     )),
               ),
             ),
