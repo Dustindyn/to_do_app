@@ -19,9 +19,12 @@ class AddTaskFab extends StatelessWidget {
   }
 
   void _openAddTaskDialog(BuildContext context) {
-    showDialog(
+    showGeneralDialog(
       context: context,
-      builder: (context) {
+      barrierDismissible: true,
+      barrierLabel: '',
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation1, _) {
         return Padding(
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -30,6 +33,18 @@ class AddTaskFab extends StatelessWidget {
               initialDate: initialDate,
             ),
           ),
+        );
+      },
+      transitionBuilder: (context, animation1, _, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1),
+            end: const Offset(0, 0),
+          ).animate(CurvedAnimation(
+            parent: animation1,
+            curve: Curves.easeInOut,
+          )),
+          child: child,
         );
       },
     );
