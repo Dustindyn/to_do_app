@@ -100,9 +100,9 @@ class _HorizontalWeekdaysListState extends State<HorizontalWeekdaysList> {
       headerColor: context.theme.cardColor,
     ).then((value) {
       if (value != null) {
-        //TODO: fix this
-        // ignore: use_build_context_synchronously
-        context.read<SelectedDateCubit>().selectDate(value);
+        if (mounted) {
+          context.read<SelectedDateCubit>().selectDate(value);
+        }
       }
     });
   }

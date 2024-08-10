@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:animated_line_through/animated_line_through.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,8 +70,7 @@ class _TaskBoxState extends State<TaskBox> {
                             if (!(await context
                                 .get<NotificationService>()
                                 .hasPermission())) {
-                              if (Platform.isIOS) {
-                                //TODO: fix this
+                              if (context.mounted) {
                                 showErrorToast(
                                     // ignore: use_build_context_synchronously
                                     context,
@@ -82,16 +79,15 @@ class _TaskBoxState extends State<TaskBox> {
                               }
                               return;
                             }
-                            //TODO: keine zeit erlauben vor now
-                            showTimePicker(
-                                    //TODO: fix this
-                                    // ignore: use_build_context_synchronously
-                                    context: context,
-                                    initialTime: TimeOfDay.now())
-                                .then((time) => time != null
-                                    // ignore: use_build_context_synchronously
-                                    ? _scheduleNotification(context, time)
-                                    : null);
+                            if (context.mounted) {
+                              showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now())
+                                  .then((time) => time != null
+                                      // ignore: use_build_context_synchronously
+                                      ? _scheduleNotification(context, time)
+                                      : null);
+                            }
                           } else {
                             _cancelNotification(context);
                           }
