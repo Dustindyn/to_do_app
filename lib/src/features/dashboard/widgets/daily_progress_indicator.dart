@@ -7,7 +7,8 @@ import 'package:you_do/src/core/tasks/blocs/tasks_cubit.dart';
 import 'package:you_do/src/core/theme/theme_extension.dart';
 
 class DailyProgressIndicator extends StatelessWidget {
-  const DailyProgressIndicator({super.key});
+  final String dailyProgressText;
+  const DailyProgressIndicator(this.dailyProgressText, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +16,10 @@ class DailyProgressIndicator extends StatelessWidget {
       return Stack(
         children: [
           Positioned(
-              bottom: 0,
-              left: 8,
-              child: Text(context.texts.dashboard_daily_progress)),
+            bottom: 0,
+            left: 8,
+            child: Text(context.texts.dashboard_daily_progress),
+          ),
           Padding(
             padding: const EdgeInsets.only(bottom: 22),
             child: CircularPercentIndicator(
@@ -36,6 +38,20 @@ class DailyProgressIndicator extends StatelessWidget {
                       state.tasks.where((t) => t.dueDate.isToday).length,
               progressColor: context.theme.primaryColor,
               backgroundColor: const Color(0xff384c5e),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 22.0,
+                ),
+                child: Text(dailyProgressText,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    )),
+              ),
             ),
           ),
         ],

@@ -50,11 +50,12 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 12),
-                  const Row(
+                  Row(
                     children: [
-                      DailyProgressIndicator(),
-                      SizedBox(width: 12),
-                      WeeklyChart()
+                      DailyProgressIndicator(
+                          _getCompletedTasksText(state.tasks)),
+                      const SizedBox(width: 12),
+                      const WeeklyChart()
                     ],
                   ),
                   const SizedBox(height: 18),
