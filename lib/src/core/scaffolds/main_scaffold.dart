@@ -20,7 +20,10 @@ class MainScaffold extends StatelessWidget {
               onPressed: () {
                 showLicensePage(context: context);
               },
-              icon: const Icon(Icons.settings))
+              icon: const Icon(
+                Icons.info,
+                color: Colors.grey,
+              ))
         ],
       ),
       body: navigationShell,
