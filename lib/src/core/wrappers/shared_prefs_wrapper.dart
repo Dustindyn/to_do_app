@@ -5,11 +5,19 @@ class SharedPrefsWrapper {
 
   SharedPrefsWrapper(this._sharedPreferences);
 
-  Future<void> setStringList(String key, List<String> value) async {
-    await _sharedPreferences.setStringList(key, value);
+  Future<bool> setStringList(String key, List<String> value) {
+    return _sharedPreferences.setStringList(key, value);
   }
 
   List<String>? getStringList(String key) {
     return _sharedPreferences.getStringList(key);
+  }
+
+  Future<bool> setInt(String key, int n) {
+    return _sharedPreferences.setInt(key, n);
+  }
+
+  int? getInt(String key) {
+    return _sharedPreferences.getInt(key);
   }
 }

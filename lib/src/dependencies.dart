@@ -8,11 +8,11 @@ import 'package:you_do/src/core/wrappers/shared_prefs_wrapper.dart';
 Future<void> registerDependencies() async {
   final getIt = GetIt.instance;
 
-  await registerLocalNotifications();
-
   getIt.registerSingleton(SharedPrefsWrapper(
     await SharedPreferences.getInstance(),
   ));
+
+  await registerLocalNotifications();
 }
 
 extension BuildContextDIX on BuildContext {
@@ -21,7 +21,9 @@ extension BuildContextDIX on BuildContext {
 
 Future<void> registerLocalNotifications() async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  final notificationService =
-      await NotificationService.create(flutterLocalNotificationsPlugin);
+  final notificationService = await NotificationService.create(
+    GetIt.instance.get<SharedPrefsWrapper>(),
+    flutterLocalNotificationsPlugin,
+  );
   GetIt.instance.registerSingleton(notificationService);
 }

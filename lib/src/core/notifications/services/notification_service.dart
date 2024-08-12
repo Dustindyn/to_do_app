@@ -2,21 +2,25 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:you_do/src/core/wrappers/shared_prefs_wrapper.dart';
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationPlugin;
-  //TODO: next notificationId should be stored in shared prefs so you dont use same id if you schedule across app starts
-  int nextNotificationId = 0;
+  final SharedPrefsWrapper prefs;
+  late int nextNotificationId;
 
-  NotificationService(this.notificationPlugin);
+  NotificationService(this.prefs, this.notificationPlugin) {
+    nextNotificationId = prefs.getInt("nextNotificationId") ?? 0;
+  }
 
-  static Future<NotificationService> create(
+  static Future<NotificationService> create(SharedPrefsWrapper prefs,
       FlutterLocalNotificationsPlugin notificationPlugin) async {
     tz.initializeTimeZones();
-    final service = NotificationService(notificationPlugin);
+    final service = NotificationService(prefs, notificationPlugin);
     await service.notificationPlugin.initialize(
       service._buildInitializationSettings(),
     );
+
     return service;
   }
 
@@ -35,7 +39,8 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
-    return nextNotificationId++;
+    await prefs.setInt("nextNotificationId", nextNotificationId + 1);
+    return nextNotificationId;
   }
 
   Future<void> cancelNotification(int id) {
