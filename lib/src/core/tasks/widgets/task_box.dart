@@ -64,35 +64,33 @@ class _TaskBoxState extends State<TaskBox> {
                               color: context.theme.primaryColor)
                           : const Icon(Icons.notifications_off,
                               color: Colors.grey),
-                      onTap: () => setState(
-                        () async {
-                          if (widget.task.notificationId == null) {
-                            if (!(await context
-                                .get<NotificationService>()
-                                .hasPermission())) {
-                              if (context.mounted) {
-                                showErrorToast(
-                                    // ignore: use_build_context_synchronously
-                                    context,
-                                    // ignore: use_build_context_synchronously
-                                    context.texts.missing_permission_error);
-                              }
-                              return;
-                            }
+                      onTap: () async {
+                        if (widget.task.notificationId == null) {
+                          if (!(await context
+                              .get<NotificationService>()
+                              .hasPermission())) {
                             if (context.mounted) {
-                              showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now())
-                                  .then((time) => time != null
-                                      // ignore: use_build_context_synchronously
-                                      ? _scheduleNotification(context, time)
-                                      : null);
+                              showErrorToast(
+                                  // ignore: use_build_context_synchronously
+                                  context,
+                                  // ignore: use_build_context_synchronously
+                                  context.texts.missing_permission_error);
                             }
-                          } else {
-                            _cancelNotification(context);
+                            return;
                           }
-                        },
-                      ),
+                          if (context.mounted) {
+                            showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now())
+                                .then((time) => time != null
+                                    // ignore: use_build_context_synchronously
+                                    ? _scheduleNotification(context, time)
+                                    : null);
+                          }
+                        } else {
+                          _cancelNotification(context);
+                        }
+                      },
                     ),
                     Checkbox(
                       side: WidgetStateBorderSide.resolveWith(
