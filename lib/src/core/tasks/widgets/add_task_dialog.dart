@@ -18,28 +18,28 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   late DateTime _selectedDate;
 
   @override
-  initState() {
+  void initState() {
     _selectedDate = widget.initialDate;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      width: 300,
-      decoration: BoxDecoration(
-        color: context.theme.scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12),
-        ),
+    return Dialog(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(context.texts.add_task_new_task,
-                style: context.theme.textTheme.displayLarge),
+            Text(
+              context.texts.add_task_new_task,
+              style: context.theme.textTheme.displayLarge,
+            ),
+            const SizedBox(height: 24),
             TextField(
               onChanged: (value) => setState(() {
                 _description = value;
@@ -47,30 +47,49 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               decoration: InputDecoration(
                 labelText: context.texts.add_task_description,
                 hintText: context.texts.add_task_hint,
+                filled: true,
+                fillColor: context.theme.cardColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: context.theme.primaryColor,
+                    width: 2,
+                  ),
+                ),
               ),
+              style: context.theme.textTheme.bodyLarge
+                  ?.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                InkWell(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    width: 150,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: context.theme.primaryColor),
-                    ),
-                    child: Row(
+            InkWell(
+              onTap: () => _selectDate(context),
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: context.theme.cardColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
                         const Icon(Icons.calendar_month),
                         const SizedBox(width: 4),
-                        Text(DateFormat('dd.MM.yyyy').format(_selectedDate),
-                            style: context.theme.textTheme.displaySmall)
+                        Text(
+                          DateFormat('dd.MM.yyyy').format(_selectedDate),
+                          style: context.theme.textTheme.displaySmall,
+                        ),
                       ],
                     ),
-                  ),
+                    const Icon(Icons.arrow_drop_down),
+                  ],
                 ),
-                const Spacer()
-              ],
+              ),
             ),
             const SizedBox(height: 64),
             ElevatedButton(
@@ -87,7 +106,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 context.texts.add_task_submit,
                 style: const TextStyle(color: Colors.white),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -95,12 +114,25 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   }
 
   void _selectDate(BuildContext context) async {
-    //TODO: change calendar color to match scaffold color
     final date = await showDatePicker(
       context: context,
-      initialDate: widget.initialDate,
+      initialDate: _selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2025),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: context.theme.primaryColor,
+                  onPrimary: Colors.white,
+                  surface: context.theme.scaffoldBackgroundColor,
+                  onSurface: Colors.white,
+                ),
+            dialogBackgroundColor: context.theme.scaffoldBackgroundColor,
+          ),
+          child: child!,
+        );
+      },
     );
     if (date != null) {
       setState(() {
