@@ -62,7 +62,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     ],
                   ),
                   const SizedBox(height: 18),
-
                   Text(
                     context.texts.daily_tasks,
                     style: const TextStyle(
@@ -70,11 +69,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
                   const SizedBox(
                     height: 12,
                   ),
-                  //TODO: animated list here
                   for (final task
                       in state.tasks.where((t) => t.dueDate.isToday))
                     TaskBox(

@@ -8,7 +8,6 @@ class GetTasks {
   const GetTasks(this._sharedPrefsWrapper);
 
   Future<List<Task>?> call() async {
-    //TODO: move key to a config file or similar
     final tasksAsJsonStrings = _sharedPrefsWrapper.getStringList('tasks');
     if (tasksAsJsonStrings == null) {
       return [];

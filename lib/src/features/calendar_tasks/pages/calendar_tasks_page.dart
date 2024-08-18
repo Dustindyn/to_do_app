@@ -41,7 +41,6 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
-                        //TODO: animated list here
                         for (final task in state.tasks
                             .where((t) => t.dueDate.isSameDate(selectedDate)))
                           TaskBox(
