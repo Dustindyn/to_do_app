@@ -27,6 +27,7 @@ class NotificationService {
   Future<int> scheduleNotification(DateTime dateTime, String title,
       {required String description}) async {
     final durationUntilNotification = _getDurationUntilNotification(dateTime);
+
     await notificationPlugin.zonedSchedule(
         nextNotificationId,
         title,
@@ -39,6 +40,7 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+
     await prefs.setInt("nextNotificationId", nextNotificationId + 1);
     return nextNotificationId;
   }
@@ -56,13 +58,11 @@ class NotificationService {
         AndroidInitializationSettings('app_icon');
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
-    const LinuxInitializationSettings initializationSettingsLinux =
-        LinuxInitializationSettings(defaultActionName: 'Open notification');
+
     return const InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin,
-        macOS: initializationSettingsDarwin,
-        linux: initializationSettingsLinux);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
+    );
   }
 
   Duration _getDurationUntilNotification(DateTime notificationTime) {
