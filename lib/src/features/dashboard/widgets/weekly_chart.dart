@@ -16,7 +16,6 @@ class WeeklyChart extends StatefulWidget {
 class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
     return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
         return SizedBox(
