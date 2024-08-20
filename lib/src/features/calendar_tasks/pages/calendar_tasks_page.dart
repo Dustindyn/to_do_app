@@ -32,25 +32,27 @@ class _CalendarTasksPageState extends State<CalendarTasksPage> {
           ),
           body: BlocBuilder<TasksCubit, TasksState>(
             builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const HorizontalWeekdaysList(),
-                  Divider(color: context.theme.dividerColor),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        for (final task in state.tasks
-                            .where((t) => t.dueDate.isSameDate(selectedDate)))
-                          TaskBox(
-                            task,
-                          ),
-                      ],
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const HorizontalWeekdaysList(),
+                    Divider(color: context.theme.dividerColor),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          for (final task in state.tasks
+                              .where((t) => t.dueDate.isSameDate(selectedDate)))
+                            TaskBox(
+                              task,
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 64),
-                ],
+                    const SizedBox(height: 64),
+                  ],
+                ),
               );
             },
           ),
