@@ -20,13 +20,11 @@ class TaskBox extends StatefulWidget {
 class _TaskBoxState extends State<TaskBox> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return BlocBuilder<TasksCubit, TasksState>(
       builder: (context, state) {
         return Card(
           color: context.theme.cardColor,
           child: Container(
-            width: size.width,
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
