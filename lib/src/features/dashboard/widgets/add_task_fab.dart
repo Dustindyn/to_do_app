@@ -25,13 +25,9 @@ class AddTaskFab extends StatelessWidget {
       barrierLabel: '',
       transitionDuration: const Duration(milliseconds: 500),
       pageBuilder: (context, animation1, _) {
-        return Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Center(
-            child: AddTaskDialog(
-              initialDate: initialDate,
-            ),
+        return Center(
+          child: AddTaskDialog(
+            initialDate: initialDate,
           ),
         );
       },
